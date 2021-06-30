@@ -2,20 +2,23 @@
 //  MapViewController.swift
 //  Clean Up App
 //
+// Make edge transparent to allow swiping (or something)
+// Implement RightCalloutAccesoryView
+//
 //  Created by Aneesh Pandoh on 6/25/21.
 //
 
 import MapKit
 import UIKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
     
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
     let submittedlatitudes = [45.5190, 45.5200, 45.5300]
     let submittedlongitudes = [-122.6793, -122.6000, -122.5000]
-    let submittedsize = ["Small","Big", "Medium"]
-    let submitteddate = ["Jun 28 | 5:43 pm","July 16 | 2:15 am", "April 4 | 6:40 am"]
+    let submittedsize = ["Small","Large", "Medium"]
+    let submitteddate = ["Jun 28  5:43 pm","July 16  2:15 am", "April 4  6:40 am"]
     
     
     
@@ -23,6 +26,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         manager.requestWhenInUseAuthorization() //Interprets in the info.plist (whether the user has given location permissions)
         manager.delegate = self
+        mapView.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         
@@ -52,10 +56,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             let trashdate = submitteddate[x]
             let trashmarker = MKPointAnnotation()
             trashmarker.coordinate = CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong)
-            trashmarker.title = "Size:" + trashsize + "\n Data/Time:" + trashdate
+            trashmarker.title = trashsize + " Amount of Trash"
+            trashmarker.subtitle = "Data/Time: " + trashdate
             mapView.addAnnotation(trashmarker)
             x += 1
                     }
                 }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { //Custom Trash Icons and dequeing to become more effecient
+        guard !(annotation is MKUserLocation) else { //keeps user location normal icon
+            return nil
+        }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")
+
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
+        }
+        annotationView?.image = UIImage(named:"Trash_Icon")
+        annotationView?.canShowCallout = true
+        return annotationView
+    }
     
 }

@@ -105,8 +105,8 @@
 			children = (
 				F0B0FC992685159E00050420 /* ViewController.swift */,
 				F0B0FCC526851AD200050420 /* TabViewController.swift */,
-				F0B0FC9B2685159F00050420 /* Main.storyboard */,
 				F0B0FCC92686616600050420 /* MapViewController.swift */,
+				F0B0FC9B2685159F00050420 /* Main.storyboard */,
 				F0B0FC9E268515A500050420 /* Assets.xcassets */,
 				F0B0FCA0268515A500050420 /* LaunchScreen.storyboard */,
 				F0B0FC952685159E00050420 /* AppDelegate.swift */,
