@@ -4,7 +4,7 @@
 //
 // Make edge transparent to allow swiping (or something)
 // Implement RightCalloutAccesoryView
-//
+// Optional - Add search by address
 //  Created by Aneesh Pandoh on 6/25/21.
 //
 
@@ -59,21 +59,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             trashmarker.title = trashsize + " Amount of Trash"
             trashmarker.subtitle = "Data/Time: " + trashdate
             mapView.addAnnotation(trashmarker)
+            //Include array with photos set to own variables
             x += 1
                     }
                 }
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { //Custom Trash Icons and dequeing to become more effecient
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { //Custom Trash Icons and dequeueing to become more efficient
         guard !(annotation is MKUserLocation) else { //keeps user location normal icon
             return nil
         }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")//Dequeueing
 
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
-        annotationView?.image = UIImage(named:"Trash_Icon")
-        annotationView?.canShowCallout = true
+        annotationView?.image = UIImage(named:"Trash_Icon") //Custom Icon
+        annotationView?.canShowCallout = true //shows title and subtitle field when clicked
+        
+        //imageviewbutton
+        let imgbutton = UIButton(type: .custom)
+        imgbutton.backgroundColor = .systemGreen
+        imgbutton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        imgbutton.layer.cornerRadius = 0.25 * imgbutton.bounds.size.width
+        imgbutton.clipsToBounds = true
+        imgbutton.setImage(UIImage(named: "Photo_Icon"), for: .normal)
+        
+        annotationView?.rightCalloutAccessoryView = imgbutton //Button is on the right side of the clickable marker annotation field
+        
         return annotationView
     }
     
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print("hello") //Add the image of trash but be careful because every image must be different
+    }
 }
