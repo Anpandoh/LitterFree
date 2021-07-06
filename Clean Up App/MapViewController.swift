@@ -19,6 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let submittedlongitudes = [-122.6793, -122.6000, -122.5000]
     let submittedsize = ["Small","Large", "Medium"]
     let submitteddate = ["Jun 28  5:43 pm","July 16  2:15 am", "April 4  6:40 am"]
+    let submittedurl = ["Garbage1", "Garbage2", "Garbage3"]
     
     
     
@@ -30,7 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         
-        trashmarker()
+        trashpin()
 
         
     }
@@ -49,15 +50,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     var x = 0
-    func trashmarker() { //function to create markers for every place trash is reported
+    func trashpin() { //function to create markers for every place trash is reported
         for trashlat in submittedlatitudes {
             let trashlong = submittedlongitudes[x]
             let trashsize = submittedsize[x]
             let trashdate = submitteddate[x]
-            let trashmarker = MKPointAnnotation()
-            trashmarker.coordinate = CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong)
-            trashmarker.title = trashsize + " Amount of Trash"
-            trashmarker.subtitle = "Data/Time: " + trashdate
+            let trashimg = submittedurl[x]
+            let trashmarker = Trashmarkers(title: trashsize + " Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong), url: trashimg)
             mapView.addAnnotation(trashmarker)
             //Include array with photos set to own variables
             x += 1
@@ -89,6 +88,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        print("hello") //Add the image of trash but be careful because every image must be different
+        guard let trash = view.annotation as? Trashmarkers else {return}
+        
+        let pinUrl = trash.url //show actual trash image
+        print(pinUrl)
+        
+        //@IBOutlet var imageView: UIImageView
     }
 }

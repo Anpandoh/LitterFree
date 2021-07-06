@@ -64,5 +64,7 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please allow to see your location while in app.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow to upload photos</string>
 </dict>
 </plist>
