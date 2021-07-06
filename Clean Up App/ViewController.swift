@@ -23,12 +23,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
-        picker.allowsEditing = true
+        picker.allowsEditing = false
         present(picker, animated: true) //change animated maybe
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { //makes sure image is a UIImage
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { //makes sure image is a UIImage
             return
         }
         guard let imageData = image.pngData() else { //Makes sure image data is saved as PNG
