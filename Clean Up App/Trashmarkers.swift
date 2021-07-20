@@ -11,12 +11,12 @@ class Trashmarkers: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var url: String
+    var img: String
     
-    init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D, url: String){
+    init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D, img: String){
         self.title = title
         self.subtitle = subtitle
         self.coordinate = coordinate
-        self.url = url
+        self.img = img
     }
 }

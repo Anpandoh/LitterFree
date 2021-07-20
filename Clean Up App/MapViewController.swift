@@ -56,7 +56,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let trashsize = submittedsize[x]
             let trashdate = submitteddate[x]
             let trashimg = submittedurl[x]
-            let trashmarker = Trashmarkers(title: trashsize + " Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong), url: trashimg)
+            let trashmarker = Trashmarkers(title: trashsize + " Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong), img: trashimg)
             mapView.addAnnotation(trashmarker)
             //Include array with photos set to own variables
             x += 1
@@ -90,8 +90,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let trash = view.annotation as? Trashmarkers else {return}
         
-        let pinUrl = trash.url //show actual trash image
-        print(pinUrl)
+        let pinImg = trash.img //show actual trash image
+        print(pinImg)
         
         //@IBOutlet var imageView: UIImageView
     }
