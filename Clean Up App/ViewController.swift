@@ -75,7 +75,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         group.notify(queue: .main) {
             print(self.userImages.count)
             if self.userImages.count != 0 {
-                guard let imageData = self.userImages[0].jpegData(compressionQuality: 1) else { //fix if picker is canceled
+                guard let imageData = self.userImages[0].pngData() else { //fix if picker is canceled
                     return
                 }
                 
@@ -85,27 +85,27 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
                 //metadata uploading
                 let metadataDict = [
                     "Latitude": latitude,
-                    "Longitude": longitude,
-                    "Date Created": photodate
+                    "Longitude":longitude,
+                    "Date":photodate
                 ]
                 
                 
                 
-                let metadata = StorageMetadata()
-                metadata.contentType = "images/jpeg";
-                metadata.customMetadata = metadataDict;
+                let Metadata = StorageMetadata()
+                //Metadata.contentType = "images/png" FIREBASE IS BROKEN AND WILL ONLY ALLOW CUSTOM METADATA IF CONTENTTYPE AND OTHERS REMAIN UNSPECIFIED
+                Metadata.customMetadata = metadataDict;
                 
                 //SampleUserName
                 let username = ("Anpandoh")
                 
                 //uploadimagedata
-                let ref = self.storage.child("images123/" + imguploadtime + " " + username)
-                ref.putData(imageData, metadata: metadata, completion: { _, error in
+                let ref = self.storage.child("images/" + imguploadtime + " " + username)
+                ref.putData(imageData, metadata: Metadata, completion: { _, error in
                     guard error == nil else {
                         print("Failed to Upload")
                         return
                     }
-                    self.storage.child("images123/" + imguploadtime + " " + username).downloadURL(completion: {url, error in //gets download URL
+                    self.storage.child("images/" + imguploadtime + " " + username).downloadURL(completion: {url, error in //gets download URL
                         guard let url = url, error == nil else {return}
                         let urlString = url.absoluteString
                         print("Image URL:" + urlString)
@@ -113,7 +113,6 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
                         self.userImages.removeAll()
                     })
                 })
-                                
                 func imagePickerControllerDidCancel(_ picker: UIImagePickerController){ //Cancel button
                     picker.dismiss(animated: true, completion: nil)
                 }
