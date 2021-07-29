@@ -5,22 +5,24 @@
 // Make edge transparent to allow swiping (or something)
 // Implement RightCalloutAccesoryView
 // Optional - Add search by address
+// Optional bind to only coordinates inside Portland
+// 
 //  Created by Aneesh Pandoh on 6/25/21.
 //
 
 import MapKit
 import UIKit
+import FirebaseStorage
+
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
     
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
-    let submittedlatitudes = [45.5190, 45.5200, 45.5300]
-    let submittedlongitudes = [-122.6793, -122.6000, -122.5000]
-    let submittedsize = ["Small","Large", "Medium"]
-    let submitteddate = ["Jun 28  5:43 pm","July 16  2:15 am", "April 4  6:40 am"]
-    let submittedurl = ["Garbage1", "Garbage2", "Garbage3"]
-    
+    var numberFormatter = NumberFormatter()
+    var metadataIndex =  NSDictionary()
+    var metadataunwrap = [NSDictionary]()
+    private var metadataTotal = [String: Any]()
     
     
     override func viewDidLoad() {
@@ -30,11 +32,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
-        
-        trashpin()
+        fetchMetadata()
 
         
     }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
         if let location = locations.last {
             manager.stopUpdatingLocation()
@@ -48,26 +52,74 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.setRegion(region, animated: false)
         
     }
-
+    
     var x = 0
-    func trashpin() { //function to create markers for every place trash is reported
-        for trashlat in submittedlatitudes {
-            let trashlong = submittedlongitudes[x]
-            let trashsize = submittedsize[x]
-            let trashdate = submitteddate[x]
-            let trashimg = submittedurl[x]
-            let trashmarker = Trashmarkers(title: trashsize + " Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat, longitude: trashlong), img: trashimg)
-            mapView.addAnnotation(trashmarker)
-            //Include array with photos set to own variables
-            x += 1
+    
+    //getting metadata
+    func fetchMetadata() {
+        let storage = Storage.storage().reference()
+        let ref = storage.child("images/")
+        let group = DispatchGroup()
+        ref.listAll { (result, error) in
+            if let error = error {
+                print("Failed to ListALL")
+            }
+            result.items.forEach {item in
+                group.enter()
+                item.getMetadata { [self] metadata, error in
+                    if let error = error {
+                        print ("Failed to Retrieve Metadata")
+                        //Uh-oh, an error occurred!
+                    } else {
+                        metadataTotal = (metadata?.dictionaryRepresentation())!
+                        //print(self.metadatavar)
+                        
+                        //metadatavar["metadata"].append(or equivlaent function for NSDictionary) and add the download URL
+//                   item.downloadURL { url, error in
+//                   if let error = error {
+                            //print ("Fauked to Retrieved Download URL")
+//                            // Handle any errors
+//                       else {
+//                            // Get the download URL for
+//                       }
+//                     }
+//
+                        
+                        
+                        
+                        defer {
+                            group.leave()
+                        }
+                        metadataunwrap.append(metadataTotal["metadata"] as! NSDictionary)
+
+                        
                     }
                 }
+            }
+            group.notify(queue: .main, execute: {
+                self.trashpin()
+            })
+        }
+    }
+    
+    func trashpin() { //function to create markers for every place trash is reported
+        for i in self.metadataunwrap.indices {
+            self.metadataIndex = self.metadataunwrap[i]
+            let trashlat = numberFormatter.number(from: (self.metadataIndex["Latitude"] ?? "Cannot find Latitude") as! String)
+            let trashdate = (self.metadataIndex["Date"] ?? "Cannot find Date") as! String
+            let trashlong = numberFormatter.number(from: (self.metadataIndex["Longitude"] ?? "Cannot find Longitude") as! String)
+            let trashmarker = Trashmarkers(title: "Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: "hi")
+            mapView.addAnnotation(trashmarker)
+        }
+    }
+    
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { //Custom Trash Icons and dequeueing to become more efficient
         guard !(annotation is MKUserLocation) else { //keeps user location normal icon
             return nil
         }
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")//Dequeueing
-
+        
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
@@ -92,7 +144,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         let pinImg = trash.img //show actual trash image
         print(pinImg)
-        
         //@IBOutlet var imageView: UIImageView
     }
 }
