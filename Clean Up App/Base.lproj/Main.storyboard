@@ -171,6 +171,35 @@
             </objects>
             <point key="canvasLocation" x="1270" y="398"/>
         </scene>
+        <!--Image Pop Up View Controller-->
+        <scene sceneID="Ccs-AX-SOd">
+            <objects>
+                <viewController storyboardIdentifier="popup_vc" id="FZq-44-U3C" customClass="ImagePopUpViewController" customModule="Clean_Up_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ch-Rz-HqN" customClass="ImagePop">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-Kx-khf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dxA-rv-Tkc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dxA-rv-Tkc" firstAttribute="trailing" secondItem="wh5-Kx-khf" secondAttribute="trailing" id="Fg2-UW-cNe"/>
+                            <constraint firstItem="wh5-Kx-khf" firstAttribute="leading" secondItem="dxA-rv-Tkc" secondAttribute="leading" id="bYf-0o-ZKh"/>
+                            <constraint firstItem="dxA-rv-Tkc" firstAttribute="bottom" secondItem="wh5-Kx-khf" secondAttribute="bottom" id="tob-hG-rzl"/>
+                            <constraint firstItem="wh5-Kx-khf" firstAttribute="top" secondItem="dxA-rv-Tkc" secondAttribute="top" id="zzN-2O-G8G"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="wh5-Kx-khf" id="HM2-9W-S9N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KlD-7L-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2139.130434782609" y="-239.0625"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Upload_Icon" width="32" height="32"/>

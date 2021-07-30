@@ -11,7 +11,7 @@ class Trashmarkers: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var img: String
+    var img: String?
     
     init(title: String, subtitle: String, coordinate: CLLocationCoordinate2D, img: String){
         self.title = title

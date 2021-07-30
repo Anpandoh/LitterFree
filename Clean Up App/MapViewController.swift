@@ -5,8 +5,6 @@
 // Make edge transparent to allow swiping (or something)
 // Implement RightCalloutAccesoryView
 // Optional - Add search by address
-// Optional bind to only coordinates inside Portland
-// 
 //  Created by Aneesh Pandoh on 6/25/21.
 //
 
@@ -19,11 +17,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet var mapView: MKMapView!
     
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
-    var numberFormatter = NumberFormatter()
-    var metadataIndex =  NSDictionary()
-    var metadataunwrap = [NSDictionary]()
-    private var metadataTotal = [String: Any]()
-    
+    var metadataIndex =  Dictionary<String,Any>()
+    var metadataunwrap = [Dictionary<String,Any>]()
+    var metadatatotal = [String: Any]()
+    let storage = Storage.storage().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +30,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         fetchMetadata()
-
+        //        trashpin()
+        
         
     }
     
@@ -57,12 +55,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     //getting metadata
     func fetchMetadata() {
-        let storage = Storage.storage().reference()
         let ref = storage.child("images/")
         let group = DispatchGroup()
+        var metadatauseful = Dictionary<String,Any>()
         ref.listAll { (result, error) in
             if let error = error {
-                print("Failed to ListALL")
+                print("Failed to List All")
             }
             result.items.forEach {item in
                 group.enter()
@@ -71,44 +69,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         print ("Failed to Retrieve Metadata")
                         //Uh-oh, an error occurred!
                     } else {
-                        metadataTotal = (metadata?.dictionaryRepresentation())!
-                        //print(self.metadatavar)
-                        
-                        //metadatavar["metadata"].append(or equivlaent function for NSDictionary) and add the download URL
-//                   item.downloadURL { url, error in
-//                   if let error = error {
-                            //print ("Fauked to Retrieved Download URL")
-//                            // Handle any errors
-//                       else {
-//                            // Get the download URL for
-//                       }
-//                     }
-//
-                        
-                        
-                        
+                        metadatatotal = (metadata?.dictionaryRepresentation())!
+                        metadatauseful = metadatatotal["metadata"] as! Dictionary<String,Any>
+                        metadatauseful.updateValue(metadatatotal["name"] as! String,forKey: "Name")
                         defer {
                             group.leave()
                         }
-                        metadataunwrap.append(metadataTotal["metadata"] as! NSDictionary)
-
+                        metadataunwrap.append(metadatauseful)
                         
                     }
                 }
             }
             group.notify(queue: .main, execute: {
+                //print(self.metadataunwrap)
                 self.trashpin()
             })
         }
     }
     
+    var numberFormatter = NumberFormatter()
     func trashpin() { //function to create markers for every place trash is reported
         for i in self.metadataunwrap.indices {
             self.metadataIndex = self.metadataunwrap[i]
             let trashlat = numberFormatter.number(from: (self.metadataIndex["Latitude"] ?? "Cannot find Latitude") as! String)
             let trashdate = (self.metadataIndex["Date"] ?? "Cannot find Date") as! String
             let trashlong = numberFormatter.number(from: (self.metadataIndex["Longitude"] ?? "Cannot find Longitude") as! String)
-            let trashmarker = Trashmarkers(title: "Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: "hi")
+            let trashname = (self.metadataIndex["Name"] ?? "Cannot find Name") as! String
+            let trashmarker = Trashmarkers(title: "Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: trashname)
             mapView.addAnnotation(trashmarker)
         }
     }
@@ -142,8 +129,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let trash = view.annotation as? Trashmarkers else {return}
         
-        let pinImg = trash.img //show actual trash image
+        
+        guard let popupvc = storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
+        
+        present(popupvc, animated:true)
+        let pinImg = trash.img!//show actual trash image
+        let imageloader = storage.child(pinImg)
+        imageloader.downloadURL(completion: {url, error in
+            guard let url = url, error == nil else{
+                return
+            }
+            let urlString = url.absoluteString
+            UserDefaults.standard.set(urlString, forKey: "Url")//check if it stores permanently in memory
+        })
+    
         print(pinImg)
-        //@IBOutlet var imageView: UIImageView
     }
 }
+
