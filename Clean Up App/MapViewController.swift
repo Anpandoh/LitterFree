@@ -21,7 +21,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var metadataunwrap = [Dictionary<String,Any>]()
     var metadatatotal = [String: Any]()
     let storage = Storage.storage().reference()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.requestWhenInUseAuthorization() //Interprets in the info.plist (whether the user has given location permissions)
@@ -130,20 +129,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         guard let trash = view.annotation as? Trashmarkers else {return}
         
         
-        guard let popupvc = storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
         
-        present(popupvc, animated:true)
         let pinImg = trash.img!//show actual trash image
         let imageloader = storage.child(pinImg)
         imageloader.downloadURL(completion: {url, error in
             guard let url = url, error == nil else{
                 return
             }
-            let urlString = url.absoluteString
-            UserDefaults.standard.set(urlString, forKey: "Url")//check if it stores permanently in memory
+            let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+                guard let data = data,  error == nil else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
+                    let image = UIImage(data: data)
+                    popupvc.image = image!
+                    self.present(popupvc, animated:true)
+
+                }
+            })
+            task.resume()
+            
+            print(url)
         })
-    
-        print(pinImg)
+        
     }
 }
 
