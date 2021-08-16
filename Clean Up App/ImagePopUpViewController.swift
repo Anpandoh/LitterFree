@@ -15,9 +15,10 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
     var image = UIImage()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        //super.viewDidLoad()
         imageView.contentMode = .scaleAspectFit //can change
         imageView.transform = imageView.transform.rotated(by: .pi/2) //change orientation
+        imageView.frame = view.bounds
         
         self.imageView.image = image
         

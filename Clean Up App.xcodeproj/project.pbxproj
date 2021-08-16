@@ -12,6 +12,7 @@
 		3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2178BBFB9DE080A1761E3B47 /* Pods_Clean_Up_App.framework */; };
 		F05AC49A2693BBF5004138F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F05AC4992693BBF5004138F2 /* GoogleService-Info.plist */; };
 		F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05AC49B2694E247004138F2 /* Trashmarkers.swift */; };
+		F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC426B90C3500959249 /* SnapshotViewController.swift */; };
 		F0B0FC962685159E00050420 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC952685159E00050420 /* AppDelegate.swift */; };
 		F0B0FC982685159E00050420 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC972685159E00050420 /* SceneDelegate.swift */; };
 		F0B0FC9A2685159E00050420 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC992685159E00050420 /* ViewController.swift */; };
@@ -53,6 +54,7 @@
 		E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F05AC4992693BBF5004138F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F05AC49B2694E247004138F2 /* Trashmarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trashmarkers.swift; sourceTree = "<group>"; };
+		F06E0FC426B90C3500959249 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
 		F0B0FC922685159E00050420 /* Clean Up App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clean Up App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0B0FC952685159E00050420 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0B0FC972685159E00050420 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,10 +152,11 @@
 			isa = PBXGroup;
 			children = (
 				F0B0FCC526851AD200050420 /* TabViewController.swift */,
-				F0B0FC992685159E00050420 /* ViewController.swift */,
 				F05AC49B2694E247004138F2 /* Trashmarkers.swift */,
-				F0B0FCC92686616600050420 /* MapViewController.swift */,
 				F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */,
+				F06E0FC426B90C3500959249 /* SnapshotViewController.swift */,
+				F0B0FCC92686616600050420 /* MapViewController.swift */,
+				F0B0FC992685159E00050420 /* ViewController.swift */,
 				F0B0FC9B2685159F00050420 /* Main.storyboard */,
 				F0B0FC9E268515A500050420 /* Assets.xcassets */,
 				F0B0FCA0268515A500050420 /* LaunchScreen.storyboard */,
@@ -428,6 +431,7 @@
 				F0B0FC962685159E00050420 /* AppDelegate.swift in Sources */,
 				F0F2676026B3D86200488F4C /* ImagePopUpViewController.swift in Sources */,
 				F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */,
+				F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */,
 				F0B0FC982685159E00050420 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -23,7 +23,9 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please allow to see your location while in app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Data from images</string>
+	<string>Please allow access to Photo Library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access for Access to Camera</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
