@@ -21,6 +21,8 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         swipe.numberOfTouchesRequired = 1 //amount of fingers required to swipe
         swipe.direction = .right
         self.view.addGestureRecognizer(swipe)
+        
+        self.selectedIndex = 1
     }
     @objc private func swipeGesture(swipe: UISwipeGestureRecognizer){//creating swipe gesture func
         switch swipe.direction{

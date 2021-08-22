@@ -16,16 +16,27 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.19354060760-4dii9mdmpa5g55fmmjnr4s9h5h9hgsfg</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access for Access to Camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please allow to see your location while in app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please allow access to Photo Library</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow access for Access to Camera</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

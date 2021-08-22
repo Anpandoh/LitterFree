@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import FirebaseStorage
+import FirebaseAuth
 
 
 class SnapshotViewController: UIViewController {
@@ -21,7 +22,8 @@ class SnapshotViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        self.view.backgroundColor = UIColor.black
         imageView.frame = view.bounds//can change
         self.imageView.image = image
         view.addSubview(sendButton)
@@ -40,7 +42,8 @@ class SnapshotViewController: UIViewController {
     }()
     
     @IBAction func didTapDismissButton() {
-        self.dismiss(animated: true)
+        self.dismiss(animated: false) {
+        }
     }
     
     
@@ -85,24 +88,24 @@ class SnapshotViewController: UIViewController {
         Metadata.customMetadata = metadataDict;
         
         //SampleUserName
-        let username = ("Anpandoh")
+        let usernameEmail = Auth.auth().currentUser?.email
         let imageData = image.pngData()!
         
         //uploadimagedata
-        let ref = storage.child("images/" + imguploadtime + " " + username)
+        let ref = storage.child("images/" + imguploadtime + " " + usernameEmail!)
         ref.putData(imageData, metadata: Metadata, completion: { _, error in
             guard error == nil else {
                 print("Failed to Upload")
                 return
             }
-            self.storage.child("images/" + imguploadtime + " " + username).downloadURL(completion: {url, error in //gets download URL
+            self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
                 guard let url = url, error == nil else {return}
                 let urlString = url.absoluteString
                 print("Image URL:" + urlString)
             })
         })
         //imgpreviewvc.session?.startRunning()
-        self.dismiss(animated: true)
+        self.dismiss(animated: false)
     }
     
     

@@ -10,8 +10,16 @@ import FirebaseStorage
 import Photos
 import PhotosUI
 import AVFoundation
+import FirebaseAuth
+
+
 
 class ViewController: UIViewController, PHPickerViewControllerDelegate, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+    
+    
+    
+
+    
     
 //    @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
@@ -26,6 +34,15 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         view.addSubview(uploadButton)
         shutterButton.addTarget(self, action: #selector(didTapTakePhoto), for: .touchUpInside)
         uploadButton.addTarget(self, action: #selector(didUploadTapButton), for: .touchUpInside)
+        
+        
+        //if the user is not already signed in present loginOptions viewcontroller
+        if Auth.auth().currentUser == nil {
+        guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+            self.present(loginoptionvc, animated: true)
+            
+        }
+        //loginoptionvc.modalPresentationStyle = .formSheet
 
 //        imageView.contentMode = .scaleAspectFit
     }
@@ -113,16 +130,16 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
                 Metadata.customMetadata = metadataDict;
                 
                 //SampleUserName
-                let username = ("Anpandoh")
+                let usernameEmail = Auth.auth().currentUser?.email
                 
                 //uploadimagedata
-                let ref = self.storage.child("images/" + imguploadtime + " " + username)
+                let ref = self.storage.child("images/" + imguploadtime + " " + usernameEmail!)
                 ref.putData(imageData, metadata: Metadata, completion: { _, error in
                     guard error == nil else {
                         print("Failed to Upload")
                         return
                     }
-                    self.storage.child("images/" + imguploadtime + " " + username).downloadURL(completion: {url, error in //gets download URL
+                    self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
                         guard let url = url, error == nil else {return}
                         let urlString = url.absoluteString
                         print("Image URL:" + urlString)
@@ -226,12 +243,10 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         //session?.stopRunning()//makes sure video feed isnt playing while viewing photo
         guard let snapViewer = self.storyboard?.instantiateViewController(identifier: "snapViewer") as? SnapshotViewController else {return}
         snapViewer.image = image
-        //snapViewer.modalPresentationStyle = .fullScreen
+        snapViewer.modalPresentationStyle = .fullScreen
         //snapViewer.modalTransitionStyle = .crossDissolve
-        self.present(snapViewer, animated: true)
-
+        self.present(snapViewer, animated: false)
     }
-    
 }
 
 
