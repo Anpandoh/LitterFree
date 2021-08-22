@@ -52,8 +52,7 @@ class SignUpViewController: UIViewController {
                 else {
                     
                     // Transition to viewcontroller
-                    let loginvc = LoginOptionsViewController()
-                    self.dismiss(animated: true) {loginvc.dismiss(animated: false)}
+                    self.presentingViewController!.dismiss(animated: true)
                 }
                 
             }

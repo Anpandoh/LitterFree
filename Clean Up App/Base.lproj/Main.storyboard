@@ -63,23 +63,36 @@
                                     <action selector="logOut:" destination="uAu-oA-AaK" eventType="touchUpInside" id="bbN-kf-084"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYw-aS-3CZ">
+                                <rect key="frame" x="40" y="128" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="u7I-W0-YP2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGreenColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ed0-Pw-sS1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wYw-aS-3CZ" firstAttribute="leading" secondItem="Ed0-Pw-sS1" secondAttribute="leading" constant="40" id="12n-sN-PlM"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="u4A-pp-aq6" secondAttribute="trailing" constant="40" id="5h7-EX-Bgd"/>
                             <constraint firstItem="u4A-pp-aq6" firstAttribute="leading" secondItem="Ed0-Pw-sS1" secondAttribute="leading" constant="40" id="ZhJ-Em-Icb"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="bottom" secondItem="u4A-pp-aq6" secondAttribute="bottom" constant="50" id="fOd-jw-EGD"/>
+                            <constraint firstItem="wYw-aS-3CZ" firstAttribute="top" secondItem="Ed0-Pw-sS1" secondAttribute="top" constant="40" id="mRV-k8-OCe"/>
+                            <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="wYw-aS-3CZ" secondAttribute="trailing" constant="40" id="wvb-go-cAv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="aRe-ro-eZb"/>
                     <connections>
                         <outlet property="logOut" destination="u4A-pp-aq6" id="3V7-5C-bkX"/>
+                        <outlet property="userLabel" destination="wYw-aS-3CZ" id="RUS-Ul-IVs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uCJ-a1-lUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1253.6231884057972" y="1070.0892857142856"/>
+            <point key="canvasLocation" x="1253.6231884057972" y="1069.4196428571429"/>
         </scene>
         <!--Camera-->
         <scene sceneID="3g4-iE-whS">

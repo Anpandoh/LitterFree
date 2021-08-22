@@ -18,13 +18,15 @@ class Utilities {
         
         bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 2)
         
-        bottomLine.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1).cgColor
+
+        bottomLine.backgroundColor = UIColor.init(red: 48/255, green: 209/255, blue: 88/255, alpha: 1).cgColor
         
         // Remove border on text field
         textfield.borderStyle = .none
         
         // Add the line to the text field
         textfield.layer.addSublayer(bottomLine)
+        textfield.layer.masksToBounds = true
         
     }
     
@@ -40,7 +42,7 @@ class Utilities {
         
         // Hollow rounded corner style
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1).cgColor
+        button.layer.borderColor = UIColor.init(red: 48/255, green: 209/255, blue: 88/255, alpha: 1).cgColor
         button.layer.cornerRadius = 0.25 * button.bounds.size.height
         //button.tintColor = UIColor.black
     }
@@ -57,6 +59,15 @@ class Utilities {
         button.backgroundColor = .systemRed
         button.layer.cornerRadius = 0.25 * button.bounds.size.height
         button.tintColor = UIColor.white
+    }
+    
+    static func styleLabelSimple(_ label:UILabel) {
+        
+        // Filled rounded corner style
+        label.layer.borderWidth = 2
+        label.layer.borderColor = UIColor.init(red: 48/255, green: 209/255, blue: 88/255, alpha: 1).cgColor
+        label.layer.cornerRadius = 0.5 * label.bounds.size.height
+        label.tintColor = UIColor.white
     }
     
 }

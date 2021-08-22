@@ -56,12 +56,19 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
     
     //Upload Image Button
     @IBAction func didUploadTapButton() { //present image selection
-        var config = PHPickerConfiguration(photoLibrary: .shared())
-        config.filter = PHPickerFilter.any(of: [.images, .livePhotos])
-        config.selectionLimit = 1
-        let vc = PHPickerViewController(configuration: config)
-        vc.delegate = self
-        present(vc, animated: true)
+        if Auth.auth().currentUser == nil {
+            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+            self.present(loginoptionvc, animated: true)
+            
+        }
+        else {
+            var config = PHPickerConfiguration(photoLibrary: .shared())
+            config.filter = PHPickerFilter.any(of: [.images, .livePhotos])
+            config.selectionLimit = 1
+            let vc = PHPickerViewController(configuration: config)
+            vc.delegate = self
+            present(vc, animated: true)
+        }
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]){
@@ -107,7 +114,6 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         }
         
         group.notify(queue: .main) {
-            print(self.userImages.count)
             if self.userImages.count != 0 {
                 guard let imageData = self.userImages[0].pngData() else { //fix if picker is canceled
                     return
@@ -231,7 +237,14 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
     }
     
     @objc private func didTapTakePhoto() {//captures photo
+        if Auth.auth().currentUser == nil {
+            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+            self.present(loginoptionvc, animated: true)
+            
+        }
+        else {
         output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        }
     }
     
     

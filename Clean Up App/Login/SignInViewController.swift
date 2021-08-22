@@ -50,8 +50,7 @@ class SignInViewController: UIViewController {
                 }
                 else {
                     print("Logged In")
-                    let loginvc = LoginOptionsViewController()
-                    self.dismiss(animated: true) {loginvc.dismiss(animated: false)}
+                    self.presentingViewController!.dismiss(animated: true)
                 }
             }
         }
