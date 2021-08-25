@@ -148,19 +148,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
             else {
                 let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in //downloads the image data
-                guard let data = data,  error == nil else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
-                    let imageToCache = UIImage(data: data)!
-                    self.imageCache.setObject(imageToCache, forKey: urlString as NSString)
-                    let image = imageToCache
-                    popupvc.image = image
-                    self.present(popupvc, animated:true)
-                }
-            })
-            task.resume()
+                    guard let data = data,  error == nil else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
+                        let imageToCache = UIImage(data: data)!
+                        self.imageCache.setObject(imageToCache, forKey: urlString as NSString)
+                        let image = imageToCache
+                        popupvc.image = image
+                        self.present(popupvc, animated:true)
+                    }
+                })
+                task.resume()
             }
             //print(url)
         })

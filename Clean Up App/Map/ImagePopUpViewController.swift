@@ -16,7 +16,7 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
     
     override func viewDidLoad() {
         //super.viewDidLoad()
-        imageView.contentMode = .scaleAspectFit //can change
+        imageView.contentMode = .scaleAspectFill //can change
         imageView.transform = imageView.transform.rotated(by: .pi/2) //change orientation
         imageView.frame = view.bounds
         
@@ -24,5 +24,5 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
         
         
     }
-
+    
 }

@@ -12,13 +12,13 @@ import FirebaseAuth
 
 
 class SnapshotViewController: UIViewController {
-
+    
     @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
     var image = UIImage()
     let locationManager = CLLocationManager()
     //let imgpreviewvc = ViewController()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +31,10 @@ class SnapshotViewController: UIViewController {
         view.addSubview(dismissButton)
         dismissButton.addTarget(self, action: #selector(didTapDismissButton), for: .touchUpInside)
         //imgpreviewvc.session?.stopRunning()//makes sure video feed isnt playing while viewing photo
-
+        
     }
     
-
+    
     private let dismissButton: UIButton = {
         let button = UIButton(frame: CGRect(x: -10, y: 25, width: 100, height: 100))
         button.setImage(UIImage(named: "Exit_Icon"), for: .normal)
@@ -58,7 +58,7 @@ class SnapshotViewController: UIViewController {
         let button = UIButton(frame: CGRect(x: 210, y: 60, width: 150, height: 30))
         button.setTitle("Submit Image", for: .normal)
         button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 0.25 * button.bounds.size.height
+        button.layer.cornerRadius = 0.5 * button.bounds.size.height
         button.clipsToBounds = true
         return button
     }()

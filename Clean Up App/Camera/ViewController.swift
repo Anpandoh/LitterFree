@@ -18,10 +18,10 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
     
     
     
-
     
     
-//    @IBOutlet var imageView: UIImageView!
+    
+    //    @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
     private var userImages = [UIImage]()
     
@@ -38,13 +38,13 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         
         //if the user is not already signed in present loginOptions viewcontroller
         if Auth.auth().currentUser == nil {
-        guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
             self.present(loginoptionvc, animated: true)
             
         }
         //loginoptionvc.modalPresentationStyle = .formSheet
-
-//        imageView.contentMode = .scaleAspectFit
+        
+        //        imageView.contentMode = .scaleAspectFit
     }
     
     private let uploadButton: UIButton = {
@@ -149,7 +149,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
                         guard let url = url, error == nil else {return}
                         let urlString = url.absoluteString
                         print("Image URL:" + urlString)
-//                        UserDefaults.standard.set(urlString, forKey: "url")
+                        //                        UserDefaults.standard.set(urlString, forKey: "url")
                         self.userImages.removeAll()
                     })
                 })
@@ -223,7 +223,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
                 }
                 if session.canAddOutput(output){ //displays output video
                     session.addOutput(output)
-            }
+                }
                 previewLayer.videoGravity = .resizeAspectFill //resize the video
                 previewLayer.session = session
                 
@@ -243,7 +243,7 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
             
         }
         else {
-        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+            output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
         }
     }
     

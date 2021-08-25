@@ -41,23 +41,3 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         }
     }
 }
-
-//extension TabViewController: UITabBarControllerDelegate {
-//    func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return TabViewAnimation()
-//    }
-//}
-//
-//class TabViewAnimation: NSObject, UIViewControllerAnimatedTransitioning {
-//    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-//        return 0.2
-//    }
-//    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-//        guard let destination = transitionContext.view(forKey: .to) else {return}
-//
-//        destination.transform = CGAffineTransform(translationX: 0, y: destination.frame.height)
-//        transitionContext.containerView.addSubview(destination)
-//
-//        UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {destination.transform = .identity}, completion: {transitionContext.completeTransition($0)})
-//    }
-//}

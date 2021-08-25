@@ -147,19 +147,19 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hvy-we-b9h">
-                                <rect key="frame" x="40" y="238" width="334" height="289"/>
+                                <rect key="frame" x="20" y="98" width="374" height="584"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JNh-f7-Vkv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="JNh-f7-Vkv" firstAttribute="bottom" secondItem="Zna-a7-EKi" secondAttribute="bottom" constant="40" id="0Gf-fv-RBq"/>
-                            <constraint firstItem="hvy-we-b9h" firstAttribute="leading" secondItem="JNh-f7-Vkv" secondAttribute="leading" constant="40" id="ATg-9b-obh"/>
+                            <constraint firstItem="hvy-we-b9h" firstAttribute="leading" secondItem="JNh-f7-Vkv" secondAttribute="leading" constant="20" id="ATg-9b-obh"/>
                             <constraint firstItem="JNh-f7-Vkv" firstAttribute="trailing" secondItem="Zna-a7-EKi" secondAttribute="trailing" constant="40" id="BE5-qD-dQD"/>
-                            <constraint firstItem="hvy-we-b9h" firstAttribute="top" secondItem="JNh-f7-Vkv" secondAttribute="top" constant="150" id="Bgt-lJ-7NT"/>
-                            <constraint firstItem="Zna-a7-EKi" firstAttribute="top" secondItem="hvy-we-b9h" secondAttribute="bottom" constant="175" id="a8a-hd-5F3"/>
+                            <constraint firstItem="hvy-we-b9h" firstAttribute="top" secondItem="JNh-f7-Vkv" secondAttribute="top" constant="10" id="Bgt-lJ-7NT"/>
+                            <constraint firstItem="Zna-a7-EKi" firstAttribute="top" secondItem="hvy-we-b9h" secondAttribute="bottom" constant="20" id="a8a-hd-5F3"/>
                             <constraint firstItem="Zna-a7-EKi" firstAttribute="leading" secondItem="JNh-f7-Vkv" secondAttribute="leading" constant="40" id="qN0-gd-BOl"/>
-                            <constraint firstItem="JNh-f7-Vkv" firstAttribute="trailing" secondItem="hvy-we-b9h" secondAttribute="trailing" constant="40" id="xFl-CL-nKN"/>
+                            <constraint firstItem="JNh-f7-Vkv" firstAttribute="trailing" secondItem="hvy-we-b9h" secondAttribute="trailing" constant="20" id="xFl-CL-nKN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PDO-Gv-UEk"/>
@@ -312,7 +312,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-Kx-khf">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-Kx-khf">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>

@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class SettingsViewController: UIViewController {
-
+    
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var logOut: UIButton!
     
@@ -56,5 +56,5 @@ class SettingsViewController: UIViewController {
         }
     }
     
-
+    
 }
