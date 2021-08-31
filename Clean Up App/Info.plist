@@ -32,11 +32,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow access for Access to Camera</string>
+	<string>Please allow access to camera to take pictures of garbage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow to see your location while in app.</string>
+	<string>Please allow access to location to locate the garbage submitted</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow access to Photo Library</string>
+	<string>Please allow access to get location of the photo of garbage submitted</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

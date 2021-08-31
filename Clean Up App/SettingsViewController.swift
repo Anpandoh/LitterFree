@@ -38,11 +38,13 @@ class SettingsViewController: UIViewController {
         Utilities.styleCancelButton(logOut)
         Utilities.styleLabelSimple(userLabel)
         userLabel.alpha = 0
+        logOut.alpha = 0
     }
     
     private func showUser(_ message:String) {
         userLabel.text = message
         userLabel.alpha = 1
+        logOut.alpha = 1
     }
     
     private func hideUser() {
@@ -53,6 +55,11 @@ class SettingsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if Auth.auth().currentUser != nil {
             showUser("Signed in as: " + (Auth.auth().currentUser?.email)!)
+        }
+        else {
+            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+            loginoptionvc.modalPresentationStyle = .fullScreen
+            self.present(loginoptionvc, animated: true)
         }
     }
     

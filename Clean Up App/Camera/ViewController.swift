@@ -14,7 +14,7 @@ import FirebaseAuth
 
 
 
-class ViewController: UIViewController, PHPickerViewControllerDelegate, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CLLocationManagerDelegate {
     
     
     
@@ -24,18 +24,22 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
     //    @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
     private var userImages = [UIImage]()
+    let manager = CLLocationManager()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager.requestWhenInUseAuthorization()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
+        manager.startUpdatingLocation()
         checkCameraPermissions()
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
         view.addSubview(uploadButton)
         shutterButton.addTarget(self, action: #selector(didTapTakePhoto), for: .touchUpInside)
         uploadButton.addTarget(self, action: #selector(didUploadTapButton), for: .touchUpInside)
-        
-        
+                
         //if the user is not already signed in present loginOptions viewcontroller
         if Auth.auth().currentUser == nil {
             guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
@@ -45,6 +49,10 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         //loginoptionvc.modalPresentationStyle = .formSheet
         
         //        imageView.contentMode = .scaleAspectFit
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
+            manager.stopUpdatingLocation()
     }
     
     private let uploadButton: UIButton = {
@@ -62,101 +70,146 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
             
         }
         else {
-            var config = PHPickerConfiguration(photoLibrary: .shared())
-            config.filter = PHPickerFilter.any(of: [.images, .livePhotos])
-            config.selectionLimit = 1
-            let vc = PHPickerViewController(configuration: config)
-            vc.delegate = self
-            present(vc, animated: true)
-        }
-    }
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]){
-        picker.dismiss(animated: true, completion: nil)
-        
-        
-        //creating a dispatch group to make images save to array properly
-        let group = DispatchGroup()
-        var latitude = ""
-        var longitude = ""
-        var photodate = ""
-        let now = Date()
-        
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
-        
-        
-        
-        results.forEach {result in //gathering the metadata
-            if let assetId = result.assetIdentifier {
-                let assetResults = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil)
-                
-                let defaultdate = Date(timeIntervalSince1970: 0.0)
-                photodate =  formatter.string(from: assetResults.firstObject?.creationDate ?? defaultdate)//if date cannot be found as for date
-                latitude = String((assetResults.firstObject?.location?.coordinate.latitude) ?? 0.0)//create a function that if longitude and latitude = 0.0 ask for real location
-                longitude = String((assetResults.firstObject?.location?.coordinate.longitude) ?? 0.0)
-                print(photodate)
-                print(latitude)
-                print(longitude)
-            }
-            
-            group.enter()
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] reading, error in
-                defer {
-                    group.leave()
-                }
-                guard let image = reading as? UIImage, error == nil else {
-                    return
-                }
-                self?.userImages.append(image)
-            }
-        }
-        
-        group.notify(queue: .main) {
-            if self.userImages.count != 0 {
-                guard let imageData = self.userImages[0].pngData() else { //fix if picker is canceled
-                    return
-                }
-                
-                //date & time of imageupload
-                let imguploadtime = formatter.string(from: now)
-                
-                //metadata uploading
-                let metadataDict = [
-                    "Latitude": latitude,
-                    "Longitude":longitude,
-                    "Date":photodate
-                ]
-                
-                
-                
-                let Metadata = StorageMetadata()
-                //Metadata.contentType = "images/png" FIREBASE IS BROKEN AND WILL ONLY ALLOW CUSTOM METADATA IF CONTENTTYPE AND OTHERS REMAIN UNSPECIFIED
-                Metadata.customMetadata = metadataDict;
-                
-                //SampleUserName
-                let usernameEmail = Auth.auth().currentUser?.email
-                
-                //uploadimagedata
-                let ref = self.storage.child("images/" + imguploadtime + " " + usernameEmail!)
-                ref.putData(imageData, metadata: Metadata, completion: { _, error in
-                    guard error == nil else {
-                        print("Failed to Upload")
-                        return
-                    }
-                    self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
-                        guard let url = url, error == nil else {return}
-                        let urlString = url.absoluteString
-                        print("Image URL:" + urlString)
-                        //                        UserDefaults.standard.set(urlString, forKey: "url")
-                        self.userImages.removeAll()
-                    })
-                })
-                func imagePickerControllerDidCancel(_ picker: UIImagePickerController){ //Cancel button
-                    picker.dismiss(animated: true, completion: nil)
-                }
-            }
+            guard let uploadvc = self.storyboard?.instantiateViewController(identifier: "uploadNav") as? UINavigationController else {return}
+            //collectionvc.modalPresentationStyle =  .fullScreen
+            self.present(uploadvc, animated: true)
+//            var config = PHPickerConfiguration(photoLibrary: .shared())
+//            config.filter = PHPickerFilter.any(of: [.images, .livePhotos])
+//            config.selectionLimit = 1
+//            let vc = PHPickerViewController(configuration: config)
+//            vc.delegate = self
+//
+//            let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+//                switch photoAuthorizationStatus {
+//                case .notDetermined:
+//                    PHPhotoLibrary.requestAuthorization(for: .readWrite){
+//                        (newStatus) in
+//                        print("status is \(newStatus)")
+//                        if newStatus ==  PHAuthorizationStatus.authorized {
+//                            /* do stuff here */
+//                            DispatchQueue.main.async {
+//
+//                                self.present(vc, animated: true, completion: nil)}
+//                            print("All photos allowed")
+//                        }
+//                        if newStatus == PHAuthorizationStatus.limited {
+//                            DispatchQueue.main.async {
+//                                PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+//                            }
+//                            print("limited photos allowed")
+//                        }
+//                    }
+//                    print("It is not determined until now")
+//                case .restricted:
+//                        print("restricted access")// The system restricted this app's access.
+//                case .denied:
+//                        print("denied access")
+//                        break
+//                // The user explicitly denied this app's access.
+//                case .authorized:
+//                    print("authorized")
+//                    present(vc, animated: true)
+//                    // The user authorized this app to access Photos data.
+//                case .limited:
+//                    PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+//                    //add images to
+//                    print("hello")
+//                @unknown default:
+//                    fatalError()
+//
+//                }
+//            }
+//
+//
+//            //present(vc, animated: true)
+//        }
+//
+//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]){
+//        picker.dismiss(animated: true, completion: nil)
+//
+//
+//        //creating a dispatch group to make images save to array properly
+//        let group = DispatchGroup()
+//        var latitude = ""
+//        var longitude = ""
+//        var photodate = ""
+//        let now = Date()
+//
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .medium
+//        formatter.timeStyle = .medium
+//
+//
+//
+//        results.forEach {result in //gathering the metadata
+//            if let assetId = result.assetIdentifier {
+//                let assetResults = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil)
+//
+//                let defaultdate = Date(timeIntervalSince1970: 0.0)
+//                photodate =  formatter.string(from: assetResults.firstObject?.creationDate ?? defaultdate)//if date cannot be found as for date
+//                latitude = String((assetResults.firstObject?.location?.coordinate.latitude) ?? 0.0)//create a function that if longitude and latitude = 0.0 ask for real location
+//                longitude = String((assetResults.firstObject?.location?.coordinate.longitude) ?? 0.0)
+//                print(photodate)
+//                print(latitude)
+//                print(longitude)
+//            }
+//
+//            group.enter()
+//            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] reading, error in
+//                defer {
+//                    group.leave()
+//                }
+//                guard let image = reading as? UIImage, error == nil else {
+//                    return
+//                }
+//                self?.userImages.append(image)
+//            }
+//        }
+//
+//        group.notify(queue: .main) {
+//            if self.userImages.count != 0 {
+//                guard let imageData = self.userImages[0].pngData() else { //fix if picker is canceled
+//                    return
+//                }
+//
+//                //date & time of imageupload
+//                let imguploadtime = formatter.string(from: now)
+//
+//                //metadata uploading
+//                let metadataDict = [
+//                    "Latitude": latitude,
+//                    "Longitude":longitude,
+//                    "Date":photodate
+//                ]
+//
+//
+//
+//                let Metadata = StorageMetadata()
+//                //Metadata.contentType = "images/png" FIREBASE IS BROKEN AND WILL ONLY ALLOW CUSTOM METADATA IF CONTENTTYPE AND OTHERS REMAIN UNSPECIFIED
+//                Metadata.customMetadata = metadataDict;
+//
+//                //SampleUserName
+//                let usernameEmail = Auth.auth().currentUser?.email
+//
+//                //uploadimagedata
+//                let ref = self.storage.child("images/" + imguploadtime + " " + usernameEmail!)
+//                ref.putData(imageData, metadata: Metadata, completion: { _, error in
+//                    guard error == nil else {
+//                        print("Failed to Upload")
+//                        return
+//                    }
+//                    self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
+//                        guard let url = url, error == nil else {return}
+//                        let urlString = url.absoluteString
+//                        print("Image URL:" + urlString)
+//                        //                        UserDefaults.standard.set(urlString, forKey: "url")
+//                        self.userImages.removeAll()
+//                    })
+//                })
+//                func imagePickerControllerDidCancel(_ picker: UIImagePickerController){ //Cancel button
+//                    picker.dismiss(animated: true, completion: nil)
+//                }
+//            }
         }
     }
     
@@ -190,6 +243,8 @@ class ViewController: UIViewController, PHPickerViewControllerDelegate, UINaviga
         shutterButton.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height - 166)
         uploadButton.center = CGPoint(x: view.frame.size.width/5, y: view.frame.size.height - 166)
     }
+    
+    
     
     private func checkCameraPermissions() {//makes sure the user has allowed to access camera
         switch AVCaptureDevice.authorizationStatus(for: .video){

@@ -162,9 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 })
                 task.resume()
             }
-            //print(url)
         })
-        
     }
 }
 

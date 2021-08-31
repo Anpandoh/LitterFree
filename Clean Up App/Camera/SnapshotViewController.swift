@@ -22,9 +22,9 @@ class SnapshotViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.contentMode = .scaleAspectFill
+        //imageView.contentMode = .scaleAspectFill
         self.view.backgroundColor = UIColor.black
-        imageView.frame = view.bounds//can change
+        //imageView.frame = view.bounds//can change
         self.imageView.image = image
         view.addSubview(sendButton)
         sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
@@ -48,14 +48,12 @@ class SnapshotViewController: UIViewController {
     
     
     
-    
-    //figure out how to dismiss viewcontroller - make sure the viewcontroller.session starts running again (stop it on the viewcontroller)
-    
+        
     
     
     
     private let sendButton: UIButton = { //button to send picture in
-        let button = UIButton(frame: CGRect(x: 210, y: 60, width: 150, height: 30))
+        let button = UIButton(frame: CGRect(x: 250, y: 100, width: 150, height: 30))
         button.setTitle("Submit Image", for: .normal)
         button.backgroundColor = .systemGreen
         button.layer.cornerRadius = 0.5 * button.bounds.size.height
@@ -98,11 +96,11 @@ class SnapshotViewController: UIViewController {
                 print("Failed to Upload")
                 return
             }
-            self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
-                guard let url = url, error == nil else {return}
-                let urlString = url.absoluteString
-                print("Image URL:" + urlString)
-            })
+            self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion:{url, error in //gets download URL
+                    guard let url = url, error == nil else {return}
+                    let urlString = url.absoluteString
+                    print("Image URL:" + urlString)
+                })
         })
         //imgpreviewvc.session?.startRunning()
         self.dismiss(animated: false)
