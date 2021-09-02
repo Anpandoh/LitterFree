@@ -32,11 +32,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow access to camera to take pictures of garbage</string>
+	<string>Please allow access to camera to take pictures of garbage.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow access to location to locate the garbage submitted</string>
+	<string>Please allow access to location to locate the garbage submitted.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow access to get location of the photo of garbage submitted</string>
+	<string>Please allow access to get metadata containing location and date along with image of garbage to be plotted on map.</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

@@ -47,7 +47,7 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
             let asset = self.images[indexPath.row]
             let manager = PHImageManager.default()
             
-            manager.requestImage(for: asset, targetSize: CGSize(width: 128, height: 128), contentMode: .aspectFit, options: nil) { image, _ in
+            manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: nil) { image, _ in
                 
                 DispatchQueue.main.async {
                     cell.photoImageView.image = image
@@ -88,6 +88,7 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
         }
     
     private func getImages () {
+        self.images.removeAll()
         let assets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         PHPhotoLibrary.shared().register(self)
         
@@ -118,7 +119,6 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
     
     @IBAction func moreimagesTapped() {
         PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
-        self.images.removeAll()
     }
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {

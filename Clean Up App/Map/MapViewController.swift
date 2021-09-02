@@ -40,10 +40,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
-        if let location = locations.last {
+//        if let location = locations.last {
             manager.stopUpdatingLocation()
-            render(location)
-        }
+        let portlandLocation = CLLocation(latitude: 45.523064, longitude: -122.676483)
+            render(portlandLocation)
+//        }
     }
     func render(_ location: CLLocation){//render in location
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) //sets coordinates as user location

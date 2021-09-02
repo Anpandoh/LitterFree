@@ -140,6 +140,7 @@
 				E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		F06E0FCE26CC79A700959249 /* Login */ = {
@@ -182,7 +183,6 @@
 				F0B0FCB6268515A600050420 /* Clean Up AppUITests */,
 				F0B0FC932685159E00050420 /* Products */,
 				87599C65094432CF6FC415B7 /* Pods */,
-				D5A320B5CBCFF1A9A8FB8F39 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,6 +219,7 @@
 		F0B0FCAB268515A600050420 /* Clean Up AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				D5A320B5CBCFF1A9A8FB8F39 /* Frameworks */,
 				F0B0FCAC268515A600050420 /* Clean_Up_AppTests.swift */,
 				F0B0FCAE268515A600050420 /* Info.plist */,
 			);
@@ -673,7 +674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -696,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7;
+				MARKETING_VERSION = 0.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
