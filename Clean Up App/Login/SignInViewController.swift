@@ -14,6 +14,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var forgotpasswordButton: UIButton!
     
     
     
@@ -21,6 +22,24 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         setUpElements()
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func forgotPasswordTapped(_ sender: Any) {
+        let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard email != nil else {
+            errorLabel.text = ("Fill in Email TextField")
+            errorLabel.alpha = 1
+            return
+        }
+        Auth.auth().sendPasswordReset(withEmail: email!) { error in
+            
+            if error != nil {
+                // Couldn't sign in
+                self.showError(error!.localizedDescription)
+            }
+            
+        }
+        self.showError("Password Reset Link sent")
     }
     
     
@@ -31,8 +50,7 @@ class SignInViewController: UIViewController {
         if error != nil {
             
             // There's something wrong with the fields, show error message
-            errorLabel.text = error!
-            errorLabel.alpha = 1
+            self.showError(error!)
         }
         else {
             
@@ -45,8 +63,7 @@ class SignInViewController: UIViewController {
                 
                 if error != nil {
                     // Couldn't sign in
-                    self.errorLabel.text = error!.localizedDescription
-                    self.errorLabel.alpha = 1
+                    self.showError(error!.localizedDescription)
                 }
                 else {
                     print("Logged In")
@@ -74,6 +91,12 @@ class SignInViewController: UIViewController {
         Utilities.styleTextField(passwordTextField)
         Utilities.styleFilledButton(loginButton)
         passwordTextField.isSecureTextEntry = true
+    }
+    
+    private func showError(_ message:String) {
+        
+        errorLabel.text = message
+        errorLabel.alpha = 1
     }
     
 }
