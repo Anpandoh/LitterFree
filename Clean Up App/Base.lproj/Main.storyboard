@@ -346,10 +346,19 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p1P-II-kV8">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gx2-B4-ueD">
+                                <rect key="frame" x="289" y="64" width="95" height="30"/>
+                                <state key="normal" title="Submit Image"/>
+                                <connections>
+                                    <action selector="didTapSendButton" destination="fV4-K7-in6" eventType="touchUpInside" id="XUx-cX-cTh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dms-KH-kda"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="gx2-B4-ueD" firstAttribute="top" secondItem="dms-KH-kda" secondAttribute="top" constant="20" id="DXd-Uf-PwY"/>
+                            <constraint firstItem="dms-KH-kda" firstAttribute="trailing" secondItem="gx2-B4-ueD" secondAttribute="trailing" constant="30" id="dyp-WR-6XC"/>
                             <constraint firstItem="p1P-II-kV8" firstAttribute="top" secondItem="mqO-61-5Dm" secondAttribute="topMargin" id="evC-95-6LH"/>
                             <constraint firstItem="p1P-II-kV8" firstAttribute="bottom" secondItem="mqO-61-5Dm" secondAttribute="bottomMargin" id="ne5-RN-Xgf"/>
                             <constraint firstItem="p1P-II-kV8" firstAttribute="leading" secondItem="dms-KH-kda" secondAttribute="leading" id="xJt-ii-OWD"/>
@@ -360,6 +369,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="p1P-II-kV8" id="GnY-Ab-KVE"/>
+                        <outlet property="submitButton" destination="gx2-B4-ueD" id="IEO-jj-muZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6s-4X-IPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -407,8 +417,9 @@
                     <navigationItem key="navigationItem" title="Upload Images" id="c4j-az-YiI">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="8zd-R8-EuS">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BXT-zh-OB5">
-                                <rect key="frame" x="361.5" y="0.0" width="32.5" height="44"/>
+                                <rect key="frame" x="362" y="0.0" width="32" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="tintColor" red="0.36902923669999999" green="0.79750631309999997" blue="0.24331620039999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.1266121184" green="1" blue="0.086778689670000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <imageReference key="image" image="photo.on.rectangle.angled" catalog="system" symbolScale="large"/>

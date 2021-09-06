@@ -17,7 +17,9 @@ class SnapshotViewController: UIViewController {
     private let storage = Storage.storage().reference()
     var image = UIImage()
     let locationManager = CLLocationManager()
-    //let imgpreviewvc = ViewController()
+
+    @IBOutlet weak var submitButton: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -26,8 +28,8 @@ class SnapshotViewController: UIViewController {
         self.view.backgroundColor = UIColor.black
         //imageView.frame = view.bounds//can change
         self.imageView.image = image
-        view.addSubview(sendButton)
-        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
+//        view.addSubview(sendButton)
+//        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         view.addSubview(dismissButton)
         dismissButton.addTarget(self, action: #selector(didTapDismissButton), for: .touchUpInside)
         //imgpreviewvc.session?.stopRunning()//makes sure video feed isnt playing while viewing photo
@@ -52,14 +54,14 @@ class SnapshotViewController: UIViewController {
     
     
     
-    private let sendButton: UIButton = { //button to send picture in
-        let button = UIButton(frame: CGRect(x: 250, y: 100, width: 150, height: 30))
-        button.setTitle("Submit Image", for: .normal)
-        button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 0.5 * button.bounds.size.height
-        button.clipsToBounds = true
-        return button
-    }()
+//    private let sendButton: UIButton = { //button to send picture in
+//        let button = UIButton(frame: CGRect(x: 250, y: 100, width: 150, height: 30))
+//        button.setTitle("Submit Image", for: .normal)
+//        button.backgroundColor = .systemGreen
+//        button.layer.cornerRadius = 0.5 * button.bounds.size.height
+//        button.clipsToBounds = true
+//        return button
+//    }()
     
     @IBAction func didTapSendButton() {
         let now = Date()
@@ -104,6 +106,10 @@ class SnapshotViewController: UIViewController {
         })
         //imgpreviewvc.session?.startRunning()
         self.dismiss(animated: false)
+    }
+    
+    func setUpElements() {
+        Utilities.styleSubmitButton(submitButton)
     }
     
     
