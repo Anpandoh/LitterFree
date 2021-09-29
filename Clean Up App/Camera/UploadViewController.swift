@@ -30,7 +30,7 @@ class UploadViewController: UIViewController {
         
         
         let manager = PHImageManager.default()
-        manager.requestImage(for: asset, targetSize: CGSize(width: 128, height: 128), contentMode: .aspectFit, options: nil) { image, _ in
+        manager.requestImage(for: asset, targetSize: CGSize(width: 414, height: 896), contentMode: .aspectFit, options: nil) { image, _ in
             self.uploadImageView.image = image
         }
         
@@ -65,7 +65,7 @@ class UploadViewController: UIViewController {
         let manager = PHImageManager.default()
         
         manager.requestImage(for: asset, targetSize: CGSize(width: 128, height: 128), contentMode: .aspectFit, options: nil) { image, _ in
-            let imageData = image?.pngData()
+            let imageData = image?.jpegData(compressionQuality: 1.0)
             //date & time of imageupload
             let imguploadtime = formatter.string(from: now)
             

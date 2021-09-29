@@ -33,6 +33,7 @@ class SnapshotViewController: UIViewController {
         view.addSubview(dismissButton)
         dismissButton.addTarget(self, action: #selector(didTapDismissButton), for: .touchUpInside)
         //imgpreviewvc.session?.stopRunning()//makes sure video feed isnt playing while viewing photo
+        setUpElements()
         
     }
     
@@ -89,7 +90,7 @@ class SnapshotViewController: UIViewController {
         
         //SampleUserName
         let usernameEmail = Auth.auth().currentUser?.email
-        let imageData = image.pngData()!
+        let imageData = image.jpegData(compressionQuality: 1.0)!
         
         //uploadimagedata
         let ref = storage.child("images/" + imguploadtime + " " + usernameEmail!)
