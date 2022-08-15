@@ -7,7 +7,10 @@ target 'Clean Up App' do
 pod 'Firebase/Core'
 pod 'Firebase/Storage'
 pod 'Firebase/Auth'
-pod 'GoogleSignIn'
+pod 'FirebaseUI/Google'
+pod 'FirebaseUI/Facebook'
+pod 'FirebaseUI/OAuth' # Used for Sign in with Apple, Twitter, etc
+
   # Pods for Clean Up App
 
   target 'Clean Up AppTests' do

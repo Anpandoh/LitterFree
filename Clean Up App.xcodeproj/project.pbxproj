@@ -28,6 +28,7 @@
 		F0B0FCC626851AD200050420 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC526851AD200050420 /* TabViewController.swift */; };
 		F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC92686616600050420 /* MapViewController.swift */; };
 		F0C2613126D2355300C8AD90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0C2613026D2355300C8AD90 /* GoogleService-Info.plist */; };
+		F0EB8CC928A9B6CC00EEA260 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */; };
 		F0F2676026B3D86200488F4C /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */; };
 		F0FD284B26DBEC380063C357 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */; };
 		F0FD284D26DBED120063C357 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284C26DBED120063C357 /* CollectionViewController.swift */; };
@@ -84,6 +85,7 @@
 		F0B0FCC526851AD200050420 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		F0B0FCC92686616600050420 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F0C2613026D2355300C8AD90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
 		F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0FD284C26DBED120063C357 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 			children = (
 				F0B0FCC526851AD200050420 /* TabViewController.swift */,
 				F06E0FCF26CC7F4300959249 /* Utilities.swift */,
+				F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */,
 				F0819BE626D0438A0066197F /* SettingsViewController.swift */,
 				F06E0FCE26CC79A700959249 /* Login */,
 				F08841C126CDE824005ABFD5 /* Camera */,
@@ -476,6 +479,7 @@
 			files = (
 				F06E0FCD26CC795D00959249 /* SignUpViewController.swift in Sources */,
 				F0FD284B26DBEC380063C357 /* PhotosCollectionViewCell.swift in Sources */,
+				F0EB8CC928A9B6CC00EEA260 /* LoadingViewController.swift in Sources */,
 				F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */,
 				F0B0FCC626851AD200050420 /* TabViewController.swift in Sources */,
 				F0B0FC9A2685159E00050420 /* ViewController.swift in Sources */,
@@ -668,14 +672,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H2LMLUUNXC;
+				DEVELOPMENT_TEAM = T65FDJN443;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.95;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
+				MARKETING_VERSION = 1.01;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -691,14 +695,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H2LMLUUNXC;
+				DEVELOPMENT_TEAM = T65FDJN443;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.95;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
+				MARKETING_VERSION = 1.01;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -244,11 +244,12 @@
         <!--Map-->
         <scene sceneID="cRE-hc-4Rk">
             <objects>
-                <navigationController navigationBarHidden="YES" id="FeF-D3-HXt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mapView" navigationBarHidden="YES" id="FeF-D3-HXt" customClass="mapViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="mappin" catalog="system" id="U1k-NM-60T"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DI8-4c-us0">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" systemColor="systemBackgroundColor"/>
                     </navigationBar>
                     <connections>
                         <segue destination="ytu-EL-OyY" kind="relationship" relationship="rootViewController" id="O5d-9I-CtR"/>
@@ -316,7 +317,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-Kx-khf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dxA-rv-Tkc"/>
@@ -324,7 +325,7 @@
                         <constraints>
                             <constraint firstItem="dxA-rv-Tkc" firstAttribute="trailing" secondItem="wh5-Kx-khf" secondAttribute="trailing" id="Fg2-UW-cNe"/>
                             <constraint firstItem="wh5-Kx-khf" firstAttribute="leading" secondItem="dxA-rv-Tkc" secondAttribute="leading" id="bYf-0o-ZKh"/>
-                            <constraint firstItem="dxA-rv-Tkc" firstAttribute="bottom" secondItem="wh5-Kx-khf" secondAttribute="bottom" id="tob-hG-rzl"/>
+                            <constraint firstAttribute="bottom" secondItem="wh5-Kx-khf" secondAttribute="bottom" id="dmX-Pt-tuG"/>
                             <constraint firstItem="wh5-Kx-khf" firstAttribute="top" secondItem="dxA-rv-Tkc" secondAttribute="top" id="zzN-2O-G8G"/>
                         </constraints>
                     </view>

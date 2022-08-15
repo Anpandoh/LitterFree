@@ -22,9 +22,9 @@ class UploadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        uploadImageView.contentMode = .scaleAspectFill
+        //uploadImageView.contentMode = .scaleAspectFill
         self.view.backgroundColor = UIColor.black
-//        uploadImageView.frame = view.bounds
+        //uploadImageView.frame = view.bounds
         
         setUpElements()
         
@@ -51,16 +51,23 @@ class UploadViewController: UIViewController {
         
         
         let defaultdate = Date(timeIntervalSince1970: 0.0)
-        photodate =  formatter.string(from: asset.creationDate ?? defaultdate)//if date cannot be found as for date
+        photodate = formatter.string(from: asset.creationDate ?? defaultdate)//if date cannot be found as for date
         latitude = String((asset.location?.coordinate.latitude) ?? 0.0)//create a function that if longitude and latitude = 0.0 ask for real location
         longitude = String((asset.location?.coordinate.longitude) ?? 0.0)
         print(photodate)
         print(latitude)
         print(longitude)
         
+        if Double(latitude) == 0.0 && Double(longitude) == 0.0 {
+            guard let selectLocation = self.storyboard?.instantiateViewController(identifier: "mapView") as? UINavigationController else {return}
+            //collectionvc.modalPresentationStyle =  .fullScreen
+            self.present(selectLocation, animated: true)
+        }
+        
+        
         // group.enter()
         
-        
+        else {
         // group.notify(queue: .main) {
         let manager = PHImageManager.default()
         
@@ -101,11 +108,12 @@ class UploadViewController: UIViewController {
             })
         }
     }
+    }
     
     func setUpElements() {
         Utilities.styleSubmitButton(submitButton)
     }
-
+    
     
     
 }

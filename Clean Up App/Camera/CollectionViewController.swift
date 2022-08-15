@@ -15,77 +15,77 @@ private let reuseIdentifier = "Cell"
 class CollectionViewController: UICollectionViewController, PHPhotoLibraryChangeObserver {
     
     @IBOutlet weak var moreimagesButton: UIButton!
-
+    
+    
+    private var images = [PHAsset]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        populatePhotos()
+        moreimagesButton.alpha = 0
+    }
+    
+    private func setupUI() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.images.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        private var images = [PHAsset]()
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            setupUI()
-            populatePhotos()
-            moreimagesButton.alpha = 0
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCollectionViewCell", for: indexPath) as? PhotosCollectionViewCell else {
+            fatalError("PhotoCollectionViewCell is not found")
         }
         
-        private func setupUI() {
-            self.navigationController?.navigationBar.prefersLargeTitles = true
-        }
+        let asset = self.images[indexPath.item]
+        let manager = PHImageManager.default()
         
-        override func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
-        }
-        
-        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return self.images.count
-        }
-        
-        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: nil) { image, _ in
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCollectionViewCell", for: indexPath) as? PhotosCollectionViewCell else {
-                fatalError("PhotoCollectionViewCell is not found")
+            DispatchQueue.main.async {
+                cell.photoImageView.image = image
             }
             
-            let asset = self.images[indexPath.row]
-            let manager = PHImageManager.default()
+        }
+        
+        return cell
+        
+    }
+    
+    private func populatePhotos() {
+        
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
             
-            manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: nil) { image, _ in
+            if status == .authorized {
                 
+                self?.getImages()
+                
+                
+            }
+            if status == PHAuthorizationStatus.limited {
+                self?.getImages()
                 DispatchQueue.main.async {
-                    cell.photoImageView.image = image
+                    self?.moreimagesButton.alpha = 1
                 }
-                
             }
             
-            return cell
+            if status == PHAuthorizationStatus.denied {
+                print("denied access")
+                return
+            }
+            
+            
             
         }
         
-        private func populatePhotos() {
-            
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
-                
-                if status == .authorized {
-                    
-                    self?.getImages()
-                    
-                    
-                }
-                if status == PHAuthorizationStatus.limited {
-                    self?.getImages()
-                    DispatchQueue.main.async {
-                    self?.moreimagesButton.alpha = 1
-                    }
-                }
-                
-                if status == PHAuthorizationStatus.denied {
-                    print("denied access")
-                    return
-                }
-                
-                                            
-                
-            }
-            
-        }
+    }
     
     private func getImages () {
         self.images.removeAll()
@@ -114,8 +114,8 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            performSegue(withIdentifier: "showDetail", sender: nil)
-        }
+        performSegue(withIdentifier: "showDetail", sender: nil)
+    }
     
     @IBAction func moreimagesTapped() {
         PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)

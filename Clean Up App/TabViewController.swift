@@ -2,12 +2,13 @@
 //  TabViewController.swift
 //  Clean Up App
 //
-//  Created by Aneesh Pandoh on 6/24/21.
-// Github Commit test Master Test
-
+// Created by Aneesh Pandoh on 6/24/21.
 import UIKit
 
+
+
 class TabViewController: UITabBarController, UITabBarControllerDelegate {
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class TabViewController: UITabBarController, UITabBarControllerDelegate {
         self.view.addGestureRecognizer(swipe)
         
         self.selectedIndex = 1
+        self.tabBar.unselectedItemTintColor = Utilities.defaultColor
     }
     @objc private func swipeGesture(swipe: UISwipeGestureRecognizer){//creating swipe gesture func
         switch swipe.direction{

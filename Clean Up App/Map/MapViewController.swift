@@ -33,18 +33,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         mapView.showsUserLocation = true
-        fetchMetadata()        
-        
+        fetchMetadata()
     }
     
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
-//        if let location = locations.last {
-            manager.stopUpdatingLocation()
+        //        if let location = locations.last {
+        manager.stopUpdatingLocation()
         let portlandLocation = CLLocation(latitude: 45.523064, longitude: -122.676483)
-            render(portlandLocation)
-//        }
+        render(portlandLocation)
+        //        }
     }
     func render(_ location: CLLocation){//render in location
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) //sets coordinates as user location
@@ -55,6 +54,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     //getting metadata
     func fetchMetadata() {
+        
+        //Shows loading screen while metdata is being fetched
+        let loadingVC = LoadingViewController()
+        
+        // Animate loadingVC over the existing views on screen
+        loadingVC.modalPresentationStyle = .overCurrentContext
+        
+        // Animate loadingVC with a fade in animation
+        loadingVC.modalTransitionStyle = .crossDissolve
+        
+        present(loadingVC, animated: true, completion: nil)
+        
+        
         let ref = storage.child("images/")
         let group = DispatchGroup()
         var metadatauseful = Dictionary<String,Any>()
@@ -83,6 +95,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             group.notify(queue: .main, execute: {
                 //print(self.metadataunwrap)
                 self.trashpin()
+                loadingVC.dismiss(animated: true) //Dismisses the loading screen
             })
         }
     }
@@ -115,55 +128,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         //imageviewbutton
         let imgbutton = UIButton(type: .custom)
-        imgbutton.backgroundColor = .systemGreen
-        imgbutton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        imgbutton.layer.cornerRadius = 0.25 * imgbutton.bounds.size.width
-        imgbutton.clipsToBounds = true
-        imgbutton.setImage(UIImage(named: "Photo_Icon"), for: .normal)
+        Utilities.styleImgButton(imgbutton)
+        
         
         annotationView?.rightCalloutAccessoryView = imgbutton //Button is on the right side of the clickable marker annotation field
         
         return annotationView
     }
     
-    let imageCache = NSCache<AnyObject, AnyObject>()//caches images for faster loadtime
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) { //button to display trash image
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //Display trash image on seperate view controller
         guard let trash = view.annotation as? Trashmarkers else {return}
         
-        
-        
-        let pinImg = trash.img!
-        let imageloader = storage.child(pinImg)
-        imageloader.downloadURL(completion: {url, error in //fetches download url
-            guard let url = url, error == nil else{
-                return
-            }
-            let urlString = url.absoluteString
-            if let imageFromCache = self.imageCache.object(forKey: urlString as NSString) as? UIImage {//checks for cached image
-                guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
-                popupvc.image = imageFromCache
-                self.present(popupvc, animated:true)
-                //return //returns to leave the annotation function
-                
-            }
-            else {
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in //downloads the image data
-                    guard let data = data,  error == nil else {
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
-                        let imageToCache = UIImage(data: data)!
-                        self.imageCache.setObject(imageToCache, forKey: urlString as NSString)
-                        let image = imageToCache
-                        popupvc.image = image
-                        self.present(popupvc, animated:true)
-                    }
-                })
-                task.resume()
-            }
-        })
+        guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
+        popupvc.setImage(info: trash.img!)
+        self.present(popupvc, animated:true)
     }
 }
 

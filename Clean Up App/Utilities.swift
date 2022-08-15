@@ -2,7 +2,9 @@
 //  Utilities.swift
 //  customauth
 //
+//
 //  Created by Christopher Ching on 2019-05-09.
+//  Modified and Added too by Aneesh Pandoh
 //  Copyright © 2019 Christopher Ching. All rights reserved.
 //
 
@@ -78,5 +80,30 @@ class Utilities {
         button.tintColor = UIColor.white
 
     }
+    
+    static func styleImgButton(_ button:UIButton) {
+        button.backgroundColor = .systemGreen
+        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        button.layer.cornerRadius = 0.25 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.setImage(UIImage(named: "Photo_Icon"), for: .normal)
+    }
+    
+    public static var defaultColor: UIColor = {
+        if #available(iOS 13, *) {
+            return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
+                if UITraitCollection.userInterfaceStyle == .dark {
+                    /// Return the color for Dark Mode
+                    return .white
+                } else {
+                    /// Return the color for Light Mode
+                    return .black
+                }
+            }
+        } else {
+            /// Return a fallback color for iOS 12 and lower.
+            return .systemMint
+        }
+    }()
     
 }
