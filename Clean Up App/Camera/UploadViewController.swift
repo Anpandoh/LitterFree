@@ -37,7 +37,6 @@ class UploadViewController: UIViewController {
     }
     
     @IBAction func didTapSendButton() {
-        print("hello")
         var latitude = ""
         var longitude = ""
         var photodate = ""

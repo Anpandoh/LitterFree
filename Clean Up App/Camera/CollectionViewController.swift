@@ -77,8 +77,18 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
             }
             
             if status == PHAuthorizationStatus.denied {
-                print("denied access")
-                return
+                // Create new Alert
+                let dialogMessage = UIAlertController(title: "Unable to Display Your Photos", message: "Please change access to photos in settings", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    self!.dismiss(animated: true)
+                })
+                
+                //Add OK button to a dialog message
+                dialogMessage.addAction(ok)
+                // Present Alert to
+                self!.present(dialogMessage, animated: true, completion: nil)
             }
             
             

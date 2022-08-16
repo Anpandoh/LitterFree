@@ -10,10 +10,13 @@
 		26F3BC7420316D86A2686138 /* Pods_Clean_Up_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */; };
 		3CF8A038A898DA9B9645A0A8 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62384696F8E2FB716C1B309 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */; };
 		3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2178BBFB9DE080A1761E3B47 /* Pods_Clean_Up_App.framework */; };
+		B397723DA6D5428FBD1BE0C7 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF365B665BE0F5D706AAEA9 /* Pods_Clean_Up_App.framework */; };
+		CD804BD11BE51B1B5155CF6C /* Pods_Clean_Up_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6C8368D5F1933D63EF7B56 /* Pods_Clean_Up_AppTests.framework */; };
+		F0183B2128AB28CA00B8A9D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */; };
 		F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05AC49B2694E247004138F2 /* Trashmarkers.swift */; };
 		F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC426B90C3500959249 /* SnapshotViewController.swift */; };
-		F06E0FC926CC73FB00959249 /* LoginOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC826CC73FB00959249 /* LoginOptionsViewController.swift */; };
-		F06E0FCB26CC792E00959249 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCA26CC792D00959249 /* SignInViewController.swift */; };
+		F06E0FC926CC73FB00959249 /* loginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC826CC73FB00959249 /* loginManager.swift */; };
+		F06E0FCB26CC792E00959249 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCA26CC792D00959249 /* AuthViewController.swift */; };
 		F06E0FCD26CC795D00959249 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCC26CC795D00959249 /* SignUpViewController.swift */; };
 		F06E0FD026CC7F4400959249 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCF26CC7F4300959249 /* Utilities.swift */; };
 		F0819BE726D0438B0066197F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0819BE626D0438A0066197F /* SettingsViewController.swift */; };
@@ -27,12 +30,12 @@
 		F0B0FCB8268515A600050420 /* Clean_Up_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCB7268515A600050420 /* Clean_Up_AppUITests.swift */; };
 		F0B0FCC626851AD200050420 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC526851AD200050420 /* TabViewController.swift */; };
 		F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC92686616600050420 /* MapViewController.swift */; };
-		F0C2613126D2355300C8AD90 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0C2613026D2355300C8AD90 /* GoogleService-Info.plist */; };
 		F0EB8CC928A9B6CC00EEA260 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */; };
 		F0F2676026B3D86200488F4C /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */; };
 		F0FD284B26DBEC380063C357 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */; };
 		F0FD284D26DBED120063C357 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284C26DBED120063C357 /* CollectionViewController.swift */; };
 		F0FD284F26DD20D10063C357 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284E26DD20D10063C357 /* UploadViewController.swift */; };
+		FA54863BA80AE23323F8EDB8 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCE866A2D281D2BE578A807 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,16 +58,21 @@
 /* Begin PBXFileReference section */
 		01E8624037D685F3D10969AC /* Pods-Clean Up App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up App.release.xcconfig"; path = "Target Support Files/Pods-Clean Up App/Pods-Clean Up App.release.xcconfig"; sourceTree = "<group>"; };
 		0708E041F501419F8342485E /* Pods-Clean Up AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Clean Up AppTests/Pods-Clean Up AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1AF365B665BE0F5D706AAEA9 /* Pods_Clean_Up_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2178BBFB9DE080A1761E3B47 /* Pods_Clean_Up_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4504002818F9C38CA9C5B617 /* Pods-Clean Up App-Clean Up AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up App-Clean Up AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clean Up App-Clean Up AppUITests/Pods-Clean Up App-Clean Up AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		51B0EB5E89EBA993B03E16D0 /* Pods-Clean Up App-Clean Up AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up App-Clean Up AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Clean Up App-Clean Up AppUITests/Pods-Clean Up App-Clean Up AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		5AC665ED397ED433CF453D2E /* Pods-Clean Up AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up AppTests.release.xcconfig"; path = "Target Support Files/Pods-Clean Up AppTests/Pods-Clean Up AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		83E0E85BD8ACF66D675810B8 /* Pods-Clean Up App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clean Up App.debug.xcconfig"; path = "Target Support Files/Pods-Clean Up App/Pods-Clean Up App.debug.xcconfig"; sourceTree = "<group>"; };
+		BB6C8368D5F1933D63EF7B56 /* Pods_Clean_Up_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFCE866A2D281D2BE578A807 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_App_Clean_Up_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0183B1F28AB1E8600B8A9D9 /* Clean Up App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Clean Up App.entitlements"; sourceTree = "<group>"; };
+		F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F05AC49B2694E247004138F2 /* Trashmarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trashmarkers.swift; sourceTree = "<group>"; };
 		F06E0FC426B90C3500959249 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
-		F06E0FC826CC73FB00959249 /* LoginOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOptionsViewController.swift; sourceTree = "<group>"; };
-		F06E0FCA26CC792D00959249 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		F06E0FC826CC73FB00959249 /* loginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginManager.swift; sourceTree = "<group>"; };
+		F06E0FCA26CC792D00959249 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		F06E0FCC26CC795D00959249 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F06E0FCF26CC7F4300959249 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F0819BE626D0438A0066197F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = "Clean Up App/SettingsViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -84,7 +92,6 @@
 		F0B0FCB9268515A600050420 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0B0FCC526851AD200050420 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		F0B0FCC92686616600050420 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		F0C2613026D2355300C8AD90 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
 		F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -99,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */,
+				B397723DA6D5428FBD1BE0C7 /* Pods_Clean_Up_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26F3BC7420316D86A2686138 /* Pods_Clean_Up_AppTests.framework in Frameworks */,
+				CD804BD11BE51B1B5155CF6C /* Pods_Clean_Up_AppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,12 +124,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CF8A038A898DA9B9645A0A8 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework in Frameworks */,
+				FA54863BA80AE23323F8EDB8 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15358F25D6357E1E564F0A98 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1AF365B665BE0F5D706AAEA9 /* Pods_Clean_Up_App.framework */,
+				BFCE866A2D281D2BE578A807 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */,
+				BB6C8368D5F1933D63EF7B56 /* Pods_Clean_Up_AppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		87599C65094432CF6FC415B7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,9 +168,9 @@
 		F06E0FCE26CC79A700959249 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				F06E0FC826CC73FB00959249 /* LoginOptionsViewController.swift */,
+				F06E0FC826CC73FB00959249 /* loginManager.swift */,
 				F06E0FCC26CC795D00959249 /* SignUpViewController.swift */,
-				F06E0FCA26CC792D00959249 /* SignInViewController.swift */,
+				F06E0FCA26CC792D00959249 /* AuthViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -185,6 +205,7 @@
 				F0B0FCB6268515A600050420 /* Clean Up AppUITests */,
 				F0B0FC932685159E00050420 /* Products */,
 				87599C65094432CF6FC415B7 /* Pods */,
+				15358F25D6357E1E564F0A98 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -201,6 +222,7 @@
 		F0B0FC942685159E00050420 /* Clean Up App */ = {
 			isa = PBXGroup;
 			children = (
+				F0183B1F28AB1E8600B8A9D9 /* Clean Up App.entitlements */,
 				F0B0FCC526851AD200050420 /* TabViewController.swift */,
 				F06E0FCF26CC7F4300959249 /* Utilities.swift */,
 				F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */,
@@ -213,7 +235,7 @@
 				F0B0FCA0268515A500050420 /* LaunchScreen.storyboard */,
 				F0B0FC952685159E00050420 /* AppDelegate.swift */,
 				F0B0FC972685159E00050420 /* SceneDelegate.swift */,
-				F0C2613026D2355300C8AD90 /* GoogleService-Info.plist */,
+				F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */,
 				F0B0FCA3268515A500050420 /* Info.plist */,
 			);
 			path = "Clean Up App";
@@ -250,6 +272,7 @@
 				F0B0FC8F2685159E00050420 /* Frameworks */,
 				F0B0FC902685159E00050420 /* Resources */,
 				26C2FB1423071866E2CD948F /* [CP] Embed Pods Frameworks */,
+				5B1C674DF9F2A80B518F5138 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -288,6 +311,7 @@
 				F0B0FCB0268515A600050420 /* Frameworks */,
 				F0B0FCB1268515A600050420 /* Resources */,
 				B175162FF7ECD7D82B9E39D9 /* [CP] Embed Pods Frameworks */,
+				88F42546F941F31891543BFC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,7 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0B0FCA2268515A500050420 /* LaunchScreen.storyboard in Resources */,
-				F0C2613126D2355300C8AD90 /* GoogleService-Info.plist in Resources */,
+				F0183B2128AB28CA00B8A9D9 /* GoogleService-Info.plist in Resources */,
 				F0B0FC9F268515A500050420 /* Assets.xcassets in Resources */,
 				F0B0FC9D2685159F00050420 /* Main.storyboard in Resources */,
 			);
@@ -407,6 +431,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clean Up App/Pods-Clean Up App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B1C674DF9F2A80B518F5138 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clean Up App/Pods-Clean Up App-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clean Up App/Pods-Clean Up App-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clean Up App/Pods-Clean Up App-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		88F42546F941F31891543BFC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clean Up App-Clean Up AppUITests/Pods-Clean Up App-Clean Up AppUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clean Up App-Clean Up AppUITests/Pods-Clean Up App-Clean Up AppUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clean Up App-Clean Up AppUITests/Pods-Clean Up App-Clean Up AppUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A77AAC4F5F9E20C9FEBF9A5C /* [CP] Check Pods Manifest.lock */ = {
@@ -489,10 +547,10 @@
 				F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */,
 				F0FD284F26DD20D10063C357 /* UploadViewController.swift in Sources */,
 				F0FD284D26DBED120063C357 /* CollectionViewController.swift in Sources */,
-				F06E0FC926CC73FB00959249 /* LoginOptionsViewController.swift in Sources */,
+				F06E0FC926CC73FB00959249 /* loginManager.swift in Sources */,
 				F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */,
 				F0819BE726D0438B0066197F /* SettingsViewController.swift in Sources */,
-				F06E0FCB26CC792E00959249 /* SignInViewController.swift in Sources */,
+				F06E0FCB26CC792E00959249 /* AuthViewController.swift in Sources */,
 				F0B0FC982685159E00050420 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -670,16 +728,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Clean Up App/Clean Up App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T65FDJN443;
+				DEVELOPMENT_TEAM = H2LMLUUNXC;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp1;
+				MARKETING_VERSION = 1.08;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -693,16 +752,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Clean Up App/Clean Up App.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T65FDJN443;
+				DEVELOPMENT_TEAM = H2LMLUUNXC;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp1;
+				MARKETING_VERSION = 1.08;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

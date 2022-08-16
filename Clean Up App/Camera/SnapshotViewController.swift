@@ -53,16 +53,7 @@ class SnapshotViewController: UIViewController {
     
         
     
-    
-    
-//    private let sendButton: UIButton = { //button to send picture in
-//        let button = UIButton(frame: CGRect(x: 250, y: 100, width: 150, height: 30))
-//        button.setTitle("Submit Image", for: .normal)
-//        button.backgroundColor = .systemGreen
-//        button.layer.cornerRadius = 0.5 * button.bounds.size.height
-//        button.clipsToBounds = true
-//        return button
-//    }()
+
     
     @IBAction func didTapSendButton() {
         let now = Date()

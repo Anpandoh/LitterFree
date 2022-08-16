@@ -49,7 +49,7 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("hi")
+        //print("hi")
         
         //view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         

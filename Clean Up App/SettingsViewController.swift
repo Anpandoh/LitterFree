@@ -7,8 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseOAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseEmailAuthUI
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, FUIAuthDelegate {
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var logOut: UIButton!
@@ -28,10 +31,11 @@ class SettingsViewController: UIViewController {
         }
         guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
         
-        loginoptionvc.modalPresentationStyle = .fullScreen
-        self.present(loginoptionvc, animated: true)
-        print("Logged Out")
-        hideUser()
+        loginScreen()
+//        loginoptionvc.modalPresentationStyle = .fullScreen
+//        self.present(loginoptionvc, animated: true)
+//        print("Logged Out")
+//        hideUser()
     }
     
     private func setUpElements(){
@@ -47,21 +51,37 @@ class SettingsViewController: UIViewController {
         logOut.alpha = 1
     }
     
-    private func hideUser() {
-        userLabel.alpha = 0
-    }
+//    private func hideUser() {
+//        userLabel.alpha = 0
+//    }
     
     
     override func viewDidAppear(_ animated: Bool) {
         if Auth.auth().currentUser != nil {
-            showUser("Signed in as: " + (Auth.auth().currentUser?.email)!)
+            guard let email = Auth.auth().currentUser?.email else {
+                showUser("Signed in as: " + (Auth.auth().currentUser?.phoneNumber)!)
+                return
+            }
+            showUser("Signed in as: " + email)
         }
         else {
-            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
-            loginoptionvc.modalPresentationStyle = .fullScreen
-            self.present(loginoptionvc, animated: true)
+            loginScreen()
+//            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
+//            loginoptionvc.modalPresentationStyle = .fullScreen
+//            self.present(loginoptionvc, animated: true)
         }
     }
+    
+    
+    func loginScreen() {
+        let authViewController = loginManager.loginScreen(delegate: self)
+        present(authViewController, animated: true)
+    }
+    
+    
+    func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+            return customizedAuthViewController(authUI : authUI)
+        }
     
     
 }

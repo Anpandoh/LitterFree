@@ -11,17 +11,18 @@ import Photos
 import PhotosUI
 import AVFoundation
 import FirebaseAuth
+import FirebaseOAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseEmailAuthUI
 
 
 
-class ViewController: UIViewController, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CLLocationManagerDelegate, FUIAuthDelegate {
     
     
     
     
     
-    
-    //    @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
     private var userImages = [UIImage]()
     let manager = CLLocationManager()
@@ -39,22 +40,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         view.addSubview(uploadButton)
         shutterButton.addTarget(self, action: #selector(didTapTakePhoto), for: .touchUpInside)
         uploadButton.addTarget(self, action: #selector(didUploadTapButton), for: .touchUpInside)
-                
+        
         //if the user is not already signed in present loginOptions viewcontroller
         if Auth.auth().currentUser == nil {
-            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
-            self.present(loginoptionvc, animated: true)
-            
+            loginScreen()
         }
-        //loginoptionvc.modalPresentationStyle = .formSheet
         
-        //        imageView.contentMode = .scaleAspectFit
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
-            manager.stopUpdatingLocation()
+        manager.stopUpdatingLocation()
     }
     
+    //uploadButton
     private let uploadButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         button.setImage(UIImage(named: "Upload_Icon"), for: .normal)
@@ -62,21 +60,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     }()
     
     
-    //Upload Image Button
+    //UploadButton functionality
     @IBAction func didUploadTapButton() { //present image selection
-        if Auth.auth().currentUser == nil {
-            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
-            self.present(loginoptionvc, animated: true)
-            
-        }
-        else {
-            guard let uploadvc = self.storyboard?.instantiateViewController(identifier: "uploadNav") as? UINavigationController else {return}
-            //collectionvc.modalPresentationStyle =  .fullScreen
-            self.present(uploadvc, animated: true)
-        }
+        guard let uploadvc = self.storyboard?.instantiateViewController(identifier: "uploadNav") as? UINavigationController else {return}
+        //collectionvc.modalPresentationStyle =  .fullScreen
+        self.present(uploadvc, animated: true)
     }
     
-    // Camera
+    //Camera////////////////////////////////////////////////
     
     //Capture Session
     var session: AVCaptureSession?
@@ -101,8 +92,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     }
     
     
-    
-    private func checkCameraPermissions() {//makes sure the user has allowed to access camera
+    //makes sure the user has allowed to access camera
+    private func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video){
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) {granted in //asking for camera
@@ -116,6 +107,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         case .restricted:
             break
         case .denied:
+            let dialogMessage = UIAlertController(title: "Unable to Use Camera", message: "Please change access to camera in settings", preferredStyle: .alert)
+            
+            // Create OK button with action handler
+            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            })
+            
+            //Add OK button to a dialog message
+            dialogMessage.addAction(ok)
+            // Present Alert to
+            self.present(dialogMessage, animated: true, completion: nil)
+            
+            
             break
         case.authorized:
             setUpCamera() // set up camera if already allowed
@@ -124,7 +127,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         }
     }
     
-    func setUpCamera() { //setting up camera function
+    //setting up camera function
+    func setUpCamera() {
         let session = AVCaptureSession()
         if let device = AVCaptureDevice.default(for: .video) {
             do {
@@ -147,15 +151,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         }
     }
     
-    @objc private func didTapTakePhoto() {//captures photo
-        if Auth.auth().currentUser == nil {
-            guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
-            self.present(loginoptionvc, animated: true)
-            
-        }
-        else {
-            output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-        }
+    
+    //captures photo
+    @objc private func didTapTakePhoto() {
+        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     
@@ -170,6 +169,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         snapViewer.modalPresentationStyle = .fullScreen
         //snapViewer.modalTransitionStyle = .crossDissolve
         self.present(snapViewer, animated: false)
+    }
+    
+    
+    //Present Login////////////////////
+    func loginScreen() {
+        let authViewController = loginManager.loginScreen(delegate: self)
+        present(authViewController, animated: true)
+    }
+    
+    
+    func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+        return customizedAuthViewController(authUI : authUI)
     }
 }
 

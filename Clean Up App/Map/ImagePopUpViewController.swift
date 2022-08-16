@@ -47,36 +47,60 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
     }
     
     
-    let imageCache = NSCache<NSString, UIImage>()//caches images for faster loadtime
-    
+    var imageCache = ImageCache.getImageCache()
+
     //Displays the image
     func displayImage() {
         let pinImg = imgInfo
+        
+        if let imageFromCache = imageCache.get(forKey: pinImg) {
+            print("Using Cache");
+            self.imageView.image = imageFromCache
+            return
+        }//checks for cached image
+        
+                //If nothing in cache
+        print("Not using Cache");
         let imageloader = storage.child(pinImg)
-        imageloader.downloadURL(completion: {url, error in //fetches download url
-            guard let url = url, error == nil else{
+        imageloader.downloadURL(completion: {[weak self] url, error in //fetches download url
+            guard let url = url, error == nil else {
                 return
             }
-            let urlString = url.absoluteString
-            print(urlString)
-            if let imageFromCache = self.imageCache.object(forKey: urlString as NSString) {
-                self.imageView.image = imageFromCache
-            }//checks for cached image
-            else {//If nothing in cache
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in //downloads the image data
-                    guard let data = data,  error == nil else {
-                        return
+            let task = URLSession.shared.dataTask(with: url, completionHandler: {[weak self] data, _, error in //downloads the image data
+                guard let data = data, error == nil else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    if let imageToCache = UIImage(data: data)  {
+                        self?.imageCache.set(forKey: pinImg, image: imageToCache)
+                        self?.imageView.image = imageToCache
                     }
-                    DispatchQueue.main.async {
-                        let imageToCache = UIImage(data: data)!
-                        self.imageCache.setObject(imageToCache, forKey: urlString as NSString)
-                        self.imageView.image = imageToCache
-                    }
-                })
-                self.progressView.observedProgress = task.progress //Updates progress bar
-                task.resume()
+                }
                 
-            }
+            })
+            self?.progressView.observedProgress = task.progress //Updates progress bar
+            task.resume()
+            
         })
+    }
+}
+
+
+class ImageCache {
+    var cache = NSCache<NSString, UIImage>()
+    
+    func get(forKey: String) -> UIImage? {
+        return cache.object(forKey: NSString(string: forKey))
+    }
+    
+    func set(forKey: String, image: UIImage) {
+        cache.setObject(image, forKey: NSString(string: forKey))
+    }
+}
+
+extension ImageCache {
+    private static var imageCache = ImageCache()
+    static func getImageCache() -> ImageCache {
+        return imageCache
     }
 }
