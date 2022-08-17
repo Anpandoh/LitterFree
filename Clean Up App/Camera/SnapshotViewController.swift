@@ -9,9 +9,20 @@ import UIKit
 import MapKit
 import FirebaseStorage
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
+import FirebaseDatabase
+
+
+
+
+var ref: DatabaseReference!
 
 
 class SnapshotViewController: UIViewController {
+    
+
+    var db = Database.database().reference()
     
     @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
@@ -67,7 +78,7 @@ class SnapshotViewController: UIViewController {
         let longitude = String(map.manager.location?.coordinate.longitude ?? 0.0)//gets User's longitude from mapview class with LocationManager
         
         let imguploadtime = formatter.string(from: now)
-        let metadataDict = [
+        var metadataDict = [
             "Latitude":latitude,
             "Longitude":longitude,
             "Date":imguploadtime
@@ -80,19 +91,23 @@ class SnapshotViewController: UIViewController {
         Metadata.customMetadata = metadataDict;
         
         //SampleUserName
-        let usernameEmail = Auth.auth().currentUser?.email
+        let userID = Auth.auth().currentUser?.uid
         let imageData = image.jpegData(compressionQuality: 1.0)!
         
         //uploadimagedata
-        let ref = storage.child("images/" + imguploadtime + " " + usernameEmail!)
+        let ref = storage.child("images/" + imguploadtime + " " + userID!)
         ref.putData(imageData, metadata: Metadata, completion: { _, error in
             guard error == nil else {
                 print("Failed to Upload")
                 return
             }
-            self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion:{url, error in //gets download URL
+            self.storage.child("images/" + imguploadtime + " " + userID!).downloadURL(completion:{url, error in //gets download URL
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
+                    metadataDict["url"] = urlString
+                    self.db.child("TrashInfo").child(userID!).setValue(metadataDict)
+
+                //metadataDict.add
                     print("Image URL:" + urlString)
                 })
         })

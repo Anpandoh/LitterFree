@@ -12,7 +12,6 @@
 		3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2178BBFB9DE080A1761E3B47 /* Pods_Clean_Up_App.framework */; };
 		B397723DA6D5428FBD1BE0C7 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF365B665BE0F5D706AAEA9 /* Pods_Clean_Up_App.framework */; };
 		CD804BD11BE51B1B5155CF6C /* Pods_Clean_Up_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6C8368D5F1933D63EF7B56 /* Pods_Clean_Up_AppTests.framework */; };
-		F0183B2128AB28CA00B8A9D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */; };
 		F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05AC49B2694E247004138F2 /* Trashmarkers.swift */; };
 		F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC426B90C3500959249 /* SnapshotViewController.swift */; };
 		F06E0FC926CC73FB00959249 /* loginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC826CC73FB00959249 /* loginManager.swift */; };
@@ -20,6 +19,7 @@
 		F06E0FCD26CC795D00959249 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCC26CC795D00959249 /* SignUpViewController.swift */; };
 		F06E0FD026CC7F4400959249 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FCF26CC7F4300959249 /* Utilities.swift */; };
 		F0819BE726D0438B0066197F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0819BE626D0438A0066197F /* SettingsViewController.swift */; };
+		F09F6E7328AD805F00F8250A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F09F6E7228AD805F00F8250A /* GoogleService-Info.plist */; };
 		F0B0FC962685159E00050420 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC952685159E00050420 /* AppDelegate.swift */; };
 		F0B0FC982685159E00050420 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC972685159E00050420 /* SceneDelegate.swift */; };
 		F0B0FC9A2685159E00050420 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FC992685159E00050420 /* ViewController.swift */; };
@@ -68,7 +68,6 @@
 		BFCE866A2D281D2BE578A807 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_App_Clean_Up_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0183B1F28AB1E8600B8A9D9 /* Clean Up App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Clean Up App.entitlements"; sourceTree = "<group>"; };
-		F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F05AC49B2694E247004138F2 /* Trashmarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trashmarkers.swift; sourceTree = "<group>"; };
 		F06E0FC426B90C3500959249 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
 		F06E0FC826CC73FB00959249 /* loginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginManager.swift; sourceTree = "<group>"; };
@@ -76,6 +75,7 @@
 		F06E0FCC26CC795D00959249 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		F06E0FCF26CC7F4300959249 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F0819BE626D0438A0066197F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = "Clean Up App/SettingsViewController.swift"; sourceTree = SOURCE_ROOT; };
+		F09F6E7228AD805F00F8250A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0B0FC922685159E00050420 /* Clean Up App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clean Up App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0B0FC952685159E00050420 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0B0FC972685159E00050420 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +200,7 @@
 		F0B0FC892685159E00050420 = {
 			isa = PBXGroup;
 			children = (
+				F09F6E7228AD805F00F8250A /* GoogleService-Info.plist */,
 				F0B0FC942685159E00050420 /* Clean Up App */,
 				F0B0FCAB268515A600050420 /* Clean Up AppTests */,
 				F0B0FCB6268515A600050420 /* Clean Up AppUITests */,
@@ -235,7 +236,6 @@
 				F0B0FCA0268515A500050420 /* LaunchScreen.storyboard */,
 				F0B0FC952685159E00050420 /* AppDelegate.swift */,
 				F0B0FC972685159E00050420 /* SceneDelegate.swift */,
-				F0183B2028AB28C900B8A9D9 /* GoogleService-Info.plist */,
 				F0B0FCA3268515A500050420 /* Info.plist */,
 			);
 			path = "Clean Up App";
@@ -371,7 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0B0FCA2268515A500050420 /* LaunchScreen.storyboard in Resources */,
-				F0183B2128AB28CA00B8A9D9 /* GoogleService-Info.plist in Resources */,
+				F09F6E7328AD805F00F8250A /* GoogleService-Info.plist in Resources */,
 				F0B0FC9F268515A500050420 /* Assets.xcassets in Resources */,
 				F0B0FC9D2685159F00050420 /* Main.storyboard in Resources */,
 			);
@@ -737,7 +737,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -761,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

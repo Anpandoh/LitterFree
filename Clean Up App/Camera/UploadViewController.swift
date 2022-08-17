@@ -8,9 +8,22 @@
 import UIKit
 import Photos
 import Firebase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
+import FirebaseDatabase
+
+
+
+
+//var ref: DatabaseReference!
 
 
 class UploadViewController: UIViewController {
+    
+    
+    var db = Database.database().reference()
+
     
     var asset = PHAsset()
     private let storage = Storage.storage().reference()
@@ -76,7 +89,7 @@ class UploadViewController: UIViewController {
             let imguploadtime = formatter.string(from: now)
             
             //metadata uploading
-            let metadataDict = [
+            var metadataDict = [
                 "Latitude": latitude,
                 "Longitude":longitude,
                 "Date":photodate
@@ -89,18 +102,20 @@ class UploadViewController: UIViewController {
             Metadata.customMetadata = metadataDict;
             
             //SampleUserName
-            let usernameEmail = Auth.auth().currentUser?.email
+            let userID = Auth.auth().currentUser?.uid
             
             //uploadimagedata
-            let ref = self.storage.child("images/" + imguploadtime + " " + usernameEmail!)
+            let ref = self.storage.child("images/" + imguploadtime + " " + userID!)
             ref.putData(imageData!, metadata: Metadata, completion: { _, error in
                 guard error == nil else {
                     print("Failed to Upload")
                     return
                 }
-                self.storage.child("images/" + imguploadtime + " " + usernameEmail!).downloadURL(completion: {url, error in //gets download URL
+                self.storage.child("images/" + imguploadtime + " " + userID!).downloadURL(completion: {url, error in //gets download URL
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
+                    metadataDict["url"] = urlString
+                    self.db.child("TrashInfo").child(userID!).setValue(metadataDict)
                     print("Image URL:" + urlString)
                     self.presentingViewController!.dismiss(animated: true)
                 })

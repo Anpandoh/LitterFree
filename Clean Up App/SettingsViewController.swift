@@ -28,9 +28,7 @@ class SettingsViewController: UIViewController, FUIAuthDelegate {
         }
         catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
-        }
-        guard let loginoptionvc = self.storyboard?.instantiateViewController(identifier: "loginNav") as? UINavigationController else {return}
-        
+        }        
         loginScreen()
 //        loginoptionvc.modalPresentationStyle = .fullScreen
 //        self.present(loginoptionvc, animated: true)
