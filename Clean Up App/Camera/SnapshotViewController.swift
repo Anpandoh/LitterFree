@@ -16,18 +16,17 @@ import FirebaseDatabase
 
 
 
-var ref: DatabaseReference!
 
 
 class SnapshotViewController: UIViewController {
     
-
-    var db = Database.database().reference()
+    var db: DatabaseReference!
     
     @IBOutlet var imageView: UIImageView!
     private let storage = Storage.storage().reference()
     var image = UIImage()
     let locationManager = CLLocationManager()
+    //let geoCoder = CLGeocoder()
 
     @IBOutlet weak var submitButton: UIButton!
     
@@ -77,6 +76,18 @@ class SnapshotViewController: UIViewController {
         let latitude = String(map.manager.location?.coordinate.latitude ?? 0.0) //gets User's latitude from mapview class with LocationManager
         let longitude = String(map.manager.location?.coordinate.longitude ?? 0.0)//gets User's longitude from mapview class with LocationManager
         
+        //let coordinateT = map.manager.location!
+        
+//        let address = geoCoder.reverseGeocodeLocation(coordinateT, completionHandler: {(data, error) in
+//            if (error != nil) {print("reverse geodcode fail: \(error!.localizedDescription)")}
+//            let address = data! as [CLPlacemark]
+//        })
+//        print(address)
+                
+           // map.manager.location?.coordinate)
+        
+        //let address = String(map.manager.location?.)
+        
         let imguploadtime = formatter.string(from: now)
         var metadataDict = [
             "Latitude":latitude,
@@ -92,10 +103,13 @@ class SnapshotViewController: UIViewController {
         
         //SampleUserName
         let userID = Auth.auth().currentUser?.uid
+        
         let imageData = image.jpegData(compressionQuality: 1.0)!
         
         //uploadimagedata
         let ref = storage.child("images/" + imguploadtime + " " + userID!)
+        self.db = Database.database().reference()
+        
         ref.putData(imageData, metadata: Metadata, completion: { _, error in
             guard error == nil else {
                 print("Failed to Upload")
@@ -105,7 +119,7 @@ class SnapshotViewController: UIViewController {
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
                     metadataDict["url"] = urlString
-                    self.db.child("TrashInfo").child(userID!).setValue(metadataDict)
+                self.db.child("TrashInfo").child(userID!).child(imguploadtime).setValue(metadataDict)
 
                 //metadataDict.add
                     print("Image URL:" + urlString)

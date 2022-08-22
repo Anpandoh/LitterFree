@@ -21,10 +21,10 @@ import FirebaseDatabase
 
 class UploadViewController: UIViewController {
     
-    
-    var db = Database.database().reference()
+    var db: DatabaseReference!
+    //let geoCoder = CLGeocoder()
 
-    
+
     var asset = PHAsset()
     private let storage = Storage.storage().reference()
     
@@ -49,6 +49,16 @@ class UploadViewController: UIViewController {
         
     }
     
+    
+    
+    func removeSubmitButton() {
+        submitButton.alpha = 0;
+    }
+    
+    
+    
+    
+    
     @IBAction func didTapSendButton() {
         var latitude = ""
         var longitude = ""
@@ -69,6 +79,10 @@ class UploadViewController: UIViewController {
         print(photodate)
         print(latitude)
         print(longitude)
+
+        
+        
+        
         
         if Double(latitude) == 0.0 && Double(longitude) == 0.0 {
             guard let selectLocation = self.storyboard?.instantiateViewController(identifier: "mapView") as? UINavigationController else {return}
@@ -103,6 +117,8 @@ class UploadViewController: UIViewController {
             
             //SampleUserName
             let userID = Auth.auth().currentUser?.uid
+            self.db = Database.database().reference()
+
             
             //uploadimagedata
             let ref = self.storage.child("images/" + imguploadtime + " " + userID!)
@@ -115,7 +131,7 @@ class UploadViewController: UIViewController {
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
                     metadataDict["url"] = urlString
-                    self.db.child("TrashInfo").child(userID!).setValue(metadataDict)
+                    self.db.child("TrashInfo").child(userID!).child(imguploadtime).setValue(metadataDict)
                     print("Image URL:" + urlString)
                     self.presentingViewController!.dismiss(animated: true)
                 })

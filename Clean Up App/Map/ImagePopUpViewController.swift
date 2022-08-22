@@ -15,73 +15,99 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
     
     @IBOutlet var imageView: UIImageView!
     
-    var imgInfo: String = ""
+    var urlLink: String = ""
+    //var testUrl = URL
+    
     
     override func viewDidLoad() {
-        displayImage()
         //print(imgInfo)
         
-        imageView.contentMode = .scaleAspectFill //can change
+        imageView.contentMode = .scaleAspectFit //can change
         //imageView.transform = imageView.transform.rotated(by: .pi/2) //change orientation
         imageView.frame = view.bounds
         
         
-        view.addSubview(progressView)
-        progressView.setProgress(0, animated: false)
-        progressView.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: 20)
+//        view.addSubview(progressView)
+//        progressView.setProgress(0, animated: false)
+//        progressView.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: 20)
+        
+        //Shows loading screen while metdata is being fetched
+        
+        
+        
+//        let loadingVC = LoadingViewController()
+//
+//        // Animate loadingVC over the existing views on screen
+//        loadingVC.modalPresentationStyle = .overCurrentContext
+//
+//        // Animate loadingVC with a fade in animation
+//        loadingVC.modalTransitionStyle = .crossDissolve
+//
+//        self.present(loadingVC, animated: true, completion: nil)
+//
+        displayImage()
+//
+//        loadingVC.dismiss(animated: true) //Dismisses the loading screen
+
     }
+
+
     
-    //Progress Bar
-    private let progressView: UIProgressView = {
-        let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.trackTintColor = .white
-        progressView.progressTintColor = .green
-        return progressView
-    }()
     
+//    //Progress Bar
+//    private let progressView: UIProgressView = {
+//        let progressView = UIProgressView(progressViewStyle: .default)
+//        progressView.trackTintColor = .white
+//        progressView.progressTintColor = .green
+//        return progressView
+//    }()
+//
     
     
     //sets the image
-    func setImage(info: String) {
-        imgInfo = info;
+    func setImage(url: String) {
+        self.urlLink = url;
     }
     
     
     var imageCache = ImageCache.getImageCache()
-
+    
     //Displays the image
     func displayImage() {
-        let pinImg = imgInfo
         
-        if let imageFromCache = imageCache.get(forKey: pinImg) {
+       
+        //        testUrl = abcd
+        if let imageFromCache = imageCache.get(forKey: urlLink) {
+//            loadingVC.dismiss(animated: true) //Dismisses the loading screen
+            
             print("Using Cache");
             self.imageView.image = imageFromCache
+
             return
         }//checks for cached image
         
-                //If nothing in cache
+        //If nothing in cache
         print("Not using Cache");
-        let imageloader = storage.child(pinImg)
-        imageloader.downloadURL(completion: {[weak self] url, error in //fetches download url
-            guard let url = url, error == nil else {
-                return
-            }
-            let task = URLSession.shared.dataTask(with: url, completionHandler: {[weak self] data, _, error in //downloads the image data
-                guard let data = data, error == nil else {
-                    return
-                }
+        
+        let url = URL(string: urlLink)!
+        
+        
+        DispatchQueue.global().async {
+            // Fetch Image Data
+            if let data = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {
+                    // Create Image and Update Image View
                     if let imageToCache = UIImage(data: data)  {
-                        self?.imageCache.set(forKey: pinImg, image: imageToCache)
-                        self?.imageView.image = imageToCache
+                        self.imageCache.set(forKey: self.urlLink, image: imageToCache)
+                        self.imageView.image = imageToCache
                     }
                 }
+                // self.progressView.observedProgress = data.progress //Updates progress bar
                 
-            })
-            self?.progressView.observedProgress = task.progress //Updates progress bar
-            task.resume()
-            
-        })
+            }
+        }
+        //self.loadingVC.dismiss(animated: true)
+
     }
 }
 

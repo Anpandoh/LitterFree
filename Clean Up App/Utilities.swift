@@ -61,6 +61,7 @@ class Utilities {
         button.backgroundColor = .systemRed
         button.layer.cornerRadius = 0.25 * button.bounds.size.height
         button.tintColor = UIColor.white
+        //button.titleLabel?.font = UIFont(name:"Bodoni 72 Oldstyle Book", size: 20.0)
     }
     
     static func styleLabelSimple(_ label:UILabel) {
@@ -70,6 +71,8 @@ class Utilities {
         label.layer.borderColor = UIColor.init(red: 48/255, green: 209/255, blue: 88/255, alpha: 1).cgColor
         label.layer.cornerRadius = 0.5 * label.bounds.size.height
         label.tintColor = UIColor.white
+        //label.font = UIFont(name:"Bodoni 72 Oldstyle Book", size: 20.0)
+
     }
     
     static func styleSubmitButton(_ button:UIButton) {
@@ -102,7 +105,7 @@ class Utilities {
             }
         } else {
             /// Return a fallback color for iOS 12 and lower.
-            return .systemMint
+            return .systemGray
         }
     }()
     

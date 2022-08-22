@@ -40,17 +40,23 @@ class CollectionViewController: UICollectionViewController, PHPhotoLibraryChange
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCollectionViewCell", for: indexPath) as? PhotosCollectionViewCell else {
             fatalError("PhotoCollectionViewCell is not found")
         }
         
+        cell.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width/3 - 2, height: self.view.bounds.width/3 - 2)
+        
+
+        
         let asset = self.images[indexPath.item]
         let manager = PHImageManager.default()
         
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: nil) { image, _ in
+        manager.requestImage(for: asset, targetSize: CGSize(width: view.bounds.width/3, height: view.bounds.width/3), contentMode: .aspectFill, options: nil) { image, _ in
             
             DispatchQueue.main.async {
-                cell.photoImageView.image = image
+                cell.photoImageView!.image = image
+                
             }
             
         }

@@ -10,19 +10,21 @@
 
 import MapKit
 import UIKit
-import FirebaseStorage
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseFirestore
 
 
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
-    
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
     var metadataIndex =  Dictionary<String,Any>()
     var metadataunwrap = [Dictionary<String,Any>]()
     var metadatatotal = [String: Any]()
-    let storage = Storage.storage().reference()
+    var db: DatabaseReference!
+    
     
     
     override func viewDidLoad() {
@@ -33,7 +35,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         mapView.showsUserLocation = true
-        fetchMetadata()
+        trashpin()
     }
     
     
@@ -52,8 +54,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.setRegion(region, animated: false)
     }
     
-    //getting metadata
-    func fetchMetadata() {
+    
+    var numberFormatter = NumberFormatter()
+    func trashpin() { //function to create markers for every place trash is reported
+        
         
         //Shows loading screen while metdata is being fetched
         let loadingVC = LoadingViewController()
@@ -67,50 +71,29 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         present(loadingVC, animated: true, completion: nil)
         
         
-        let ref = storage.child("images/")
-        let group = DispatchGroup()
-        var metadatauseful = Dictionary<String,Any>()
-        ref.listAll { (result, error) in
-            if error != nil {
-                print("Failed to List All")
-            }
-            result.items.forEach {item in
-                group.enter()
-                item.getMetadata { [self] metadata, error in
-                    if error != nil {
-                        print ("Failed to Retrieve Metadata")
-                        //Uh-oh, an error occurred!
-                    } else {
-                        metadatatotal = (metadata?.dictionaryRepresentation())! //dictionary of all metadata
-                        metadatauseful = metadatatotal["metadata"] as! Dictionary<String,Any> //dictionary of metadata useful to us
-                        metadatauseful.updateValue(metadatatotal["name"] as! String,forKey: "Name")
-                        defer {
-                            group.leave()
-                        }
-                        metadataunwrap.append(metadatauseful)
-                        
-                    }
+        
+        db = Database.database().reference()
+        let trashInfo = self.db.child("TrashInfo")
+        trashInfo.observeSingleEvent(of: .value) { [self] snapshot in
+            for case let child as DataSnapshot in snapshot.children {
+                guard let dict = child.value as? [String:[String:String]] else {
+                    print("Error")
+                    return
+                }
+                for (_, value) in dict {
+                let trashlat = self.numberFormatter.number(from: (value["Latitude"] ?? "DNE") as String)
+                let trashdate = (value["Date"] ?? "DNE") as String
+                let trashlong = self.numberFormatter.number(from: (value["Longitude"] ?? "DNE") as String)
+                let url = (value["url"] ?? "DNE") as String
+                let trashmarker = Trashmarkers(title: "Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: url)
+                mapView.addAnnotation(trashmarker)
+
                 }
             }
-            group.notify(queue: .main, execute: {
-                //print(self.metadataunwrap)
-                self.trashpin()
-                loadingVC.dismiss(animated: true) //Dismisses the loading screen
-            })
         }
-    }
-    
-    var numberFormatter = NumberFormatter()
-    func trashpin() { //function to create markers for every place trash is reported
-        for i in self.metadataunwrap.indices {
-            self.metadataIndex = self.metadataunwrap[i]
-            let trashlat = numberFormatter.number(from: (self.metadataIndex["Latitude"] ?? "0.0") as! String)
-            let trashdate = (self.metadataIndex["Date"] ?? "Cannot find Date") as! String
-            let trashlong = numberFormatter.number(from: (self.metadataIndex["Longitude"] ?? "0.0") as! String)
-            let trashname = (self.metadataIndex["Name"] ?? "Cannot find Name") as! String
-            let trashmarker = Trashmarkers(title: "Trash", subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: trashname)
-            mapView.addAnnotation(trashmarker)
-        }
+        
+        loadingVC.dismiss(animated: true) //Dismisses the loading screen
+
     }
     
     
@@ -142,7 +125,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         guard let trash = view.annotation as? Trashmarkers else {return}
         
         guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
-        popupvc.setImage(info: trash.img!)
+        popupvc.setImage(url: trash.img!)
         self.present(popupvc, animated:true)
     }
 }
