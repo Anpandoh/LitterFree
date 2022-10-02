@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -37,7 +37,7 @@
                 <navigationController id="6oM-sT-tvg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="OXu-fA-ZzY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="brJ-Gr-pc6">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -67,7 +67,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYw-aS-3CZ">
-                                <rect key="frame" x="40" y="128" width="334" height="40"/>
+                                <rect key="frame" x="40" y="132" width="334" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="u7I-W0-YP2"/>
                                 </constraints>
@@ -168,16 +168,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Xxz-Da-KLz">
-                                <rect key="frame" x="0.0" y="-1" width="414" height="897"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="848"/>
                                 <color key="backgroundColor" red="0.0025509196050000002" green="1" blue="0.38217214490000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oNB-ao-hb8"/>
                         <constraints>
-                            <constraint firstItem="oNB-ao-hb8" firstAttribute="trailing" secondItem="Xxz-Da-KLz" secondAttribute="trailing" id="3fo-Jq-imh"/>
-                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="leading" secondItem="oNB-ao-hb8" secondAttribute="leading" id="OBI-LX-ppG"/>
-                            <constraint firstAttribute="bottom" secondItem="Xxz-Da-KLz" secondAttribute="bottom" id="PTV-yL-sei"/>
-                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="top" secondItem="oNB-ao-hb8" secondAttribute="top" constant="-45" id="bdx-bW-frI"/>
+                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="leading" secondItem="oNB-ao-hb8" secondAttribute="leading" id="2nH-Dy-Qxo"/>
+                            <constraint firstAttribute="bottom" secondItem="Xxz-Da-KLz" secondAttribute="bottom" id="8jR-zV-aLP"/>
+                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="trailing" secondItem="oNB-ao-hb8" secondAttribute="trailing" id="Rb6-N0-AqJ"/>
+                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="top" secondItem="Bu1-pg-iyL" secondAttribute="top" constant="48" id="Wv0-kd-tKr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="qjB-cq-h38"/>
@@ -217,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wh5-Kx-khf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="848"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dxA-rv-Tkc"/>
@@ -246,10 +246,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p1P-II-kV8">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gx2-B4-ueD">
-                                <rect key="frame" x="234" y="64" width="150" height="30"/>
+                                <rect key="frame" x="234" y="78" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="faI-pW-eMV"/>
                                 </constraints>
@@ -262,7 +262,7 @@
                         <viewLayoutGuide key="safeArea" id="dms-KH-kda"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="gx2-B4-ueD" firstAttribute="top" secondItem="dms-KH-kda" secondAttribute="top" constant="20" id="DXd-Uf-PwY"/>
+                            <constraint firstItem="gx2-B4-ueD" firstAttribute="top" secondItem="dms-KH-kda" secondAttribute="top" constant="30" id="RFI-ZS-qGy"/>
                             <constraint firstItem="dms-KH-kda" firstAttribute="trailing" secondItem="gx2-B4-ueD" secondAttribute="trailing" constant="30" id="dyp-WR-6XC"/>
                             <constraint firstItem="p1P-II-kV8" firstAttribute="top" secondItem="mqO-61-5Dm" secondAttribute="topMargin" id="evC-95-6LH"/>
                             <constraint firstItem="p1P-II-kV8" firstAttribute="bottom" secondItem="mqO-61-5Dm" secondAttribute="bottomMargin" id="ne5-RN-Xgf"/>
@@ -398,7 +398,7 @@
                 <navigationController storyboardIdentifier="uploadNav" automaticallyAdjustsScrollViewInsets="NO" id="HmZ-5H-Wg6" customClass="UploadNavController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dmI-le-Ifd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -412,10 +412,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera.fill" catalog="system" width="128" height="94"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="mappin" catalog="system" width="105" height="128"/>
-        <image name="photo.on.rectangle.angled" catalog="system" width="128" height="100"/>
+        <image name="camera.fill" catalog="system" width="128" height="93"/>
+        <image name="gear" catalog="system" width="128" height="122"/>
+        <image name="mappin" catalog="system" width="106" height="128"/>
+        <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

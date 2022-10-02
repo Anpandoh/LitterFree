@@ -10,9 +10,9 @@
 		26F3BC7420316D86A2686138 /* Pods_Clean_Up_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */; };
 		3CF8A038A898DA9B9645A0A8 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F62384696F8E2FB716C1B309 /* Pods_Clean_Up_App_Clean_Up_AppUITests.framework */; };
 		3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2178BBFB9DE080A1761E3B47 /* Pods_Clean_Up_App.framework */; };
-		B397723DA6D5428FBD1BE0C7 /* Pods_Clean_Up_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF365B665BE0F5D706AAEA9 /* Pods_Clean_Up_App.framework */; };
 		CD804BD11BE51B1B5155CF6C /* Pods_Clean_Up_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB6C8368D5F1933D63EF7B56 /* Pods_Clean_Up_AppTests.framework */; };
 		F0180CD028B36C2B0029A95B /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0180CCE28B36C2B0029A95B /* HeaderCollectionReusableView.swift */; };
+		F027325028E8F6B000ED78B1 /* LocationHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027324F28E8F6B000ED78B1 /* LocationHelp.swift */; };
 		F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05AC49B2694E247004138F2 /* Trashmarkers.swift */; };
 		F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC426B90C3500959249 /* SnapshotViewController.swift */; };
 		F06E0FC926CC73FB00959249 /* loginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06E0FC826CC73FB00959249 /* loginManager.swift */; };
@@ -70,6 +70,7 @@
 		E4D1FC7D47F5A86B0B7F2597 /* Pods_Clean_Up_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clean_Up_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0180CCE28B36C2B0029A95B /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F0183B1F28AB1E8600B8A9D9 /* Clean Up App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Clean Up App.entitlements"; sourceTree = "<group>"; };
+		F027324F28E8F6B000ED78B1 /* LocationHelp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelp.swift; sourceTree = "<group>"; };
 		F05AC49B2694E247004138F2 /* Trashmarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trashmarkers.swift; sourceTree = "<group>"; };
 		F06E0FC426B90C3500959249 /* SnapshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotViewController.swift; sourceTree = "<group>"; };
 		F06E0FC826CC73FB00959249 /* loginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginManager.swift; sourceTree = "<group>"; };
@@ -108,7 +109,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFA9F57DD7A2C0BCE846267 /* Pods_Clean_Up_App.framework in Frameworks */,
-				B397723DA6D5428FBD1BE0C7 /* Pods_Clean_Up_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +238,7 @@
 				F0B0FCC526851AD200050420 /* TabViewController.swift */,
 				F06E0FCF26CC7F4300959249 /* Utilities.swift */,
 				F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */,
+				F027324F28E8F6B000ED78B1 /* LocationHelp.swift */,
 				F09F6E7428B0C5EE00F8250A /* userProfile */,
 				F06E0FCE26CC79A700959249 /* Login */,
 				F08841C126CDE824005ABFD5 /* Camera */,
@@ -341,7 +342,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					F0B0FC912685159E00050420 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -555,6 +556,7 @@
 				F0B0FC962685159E00050420 /* AppDelegate.swift in Sources */,
 				F0F2676026B3D86200488F4C /* ImagePopUpViewController.swift in Sources */,
 				F06E0FD026CC7F4400959249 /* Utilities.swift in Sources */,
+				F027325028E8F6B000ED78B1 /* LocationHelp.swift in Sources */,
 				F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */,
 				F0180CD028B36C2B0029A95B /* HeaderCollectionReusableView.swift in Sources */,
 				F0FD284F26DD20D10063C357 /* UploadViewController.swift in Sources */,
@@ -745,11 +747,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2LMLUUNXC;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = LitterFree;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -769,11 +772,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H2LMLUUNXC;
 				INFOPLIST_FILE = "Clean Up App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = LitterFree;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

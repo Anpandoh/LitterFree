@@ -78,7 +78,7 @@ class Utilities {
     static func styleSubmitButton(_ button:UIButton) {
         button.setTitle("Submit Image", for: .normal)
         button.backgroundColor = .systemGreen
-        button.layer.cornerRadius = 0.5 * button.bounds.size.height
+        button.layer.cornerRadius = 0.25 * button.bounds.size.height
         button.clipsToBounds = true
         button.tintColor = UIColor.white
 

@@ -69,6 +69,7 @@ class UploadViewController: UIViewController {
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
         
+        let map = MapViewController()
         
         
         
@@ -131,7 +132,7 @@ class UploadViewController: UIViewController {
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
                     metadataDict["url"] = urlString
-                    self.db.child("TrashInfo").child(userID!).child(imguploadtime).setValue(metadataDict)
+                    self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: map.manager.location!).name).child(userID!).child(imguploadtime).setValue(metadataDict)
                     print("Image URL:" + urlString)
                     self.presentingViewController!.dismiss(animated: true)
                 })

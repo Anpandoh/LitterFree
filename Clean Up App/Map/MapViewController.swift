@@ -18,6 +18,7 @@ import FirebaseFirestore
 
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    
     @IBOutlet var mapView: MKMapView!
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
     var metadataIndex =  Dictionary<String,Any>()
@@ -43,10 +44,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
         //        if let location = locations.last {
         manager.stopUpdatingLocation()
-        let portlandLocation = CLLocation(latitude: 45.523064, longitude: -122.676483)
-        render(portlandLocation)
+        
+        let location = CLLocation(latitude: LocationHelp.closestUserCity(UserLocation: locations.last!).latitude, longitude: LocationHelp.closestUserCity(UserLocation: locations.last!).longitude)
+        //let madisonLocation = CLLocation(latitude: 43.0722, longitude: -89.4008)
+
+        render(location)
         //        }
     }
+    
+    
     func render(_ location: CLLocation){//render in location
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude) //sets coordinates as user location
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1) //sets how much off the map is shown from the user's location
@@ -73,7 +79,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         db = Database.database().reference()
-        let trashInfo = self.db.child("TrashInfo")
+        //Only shows the trashpins at current city location
+        let trashInfo = self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: manager.location!).name)
+        
         trashInfo.observeSingleEvent(of: .value) { [self] snapshot in
             for case let child as DataSnapshot in snapshot.children {
                 guard let dict = child.value as? [String:[String:String]] else {

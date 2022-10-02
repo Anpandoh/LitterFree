@@ -97,8 +97,9 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
         
         
         db = Database.database().reference()
+        let map = MapViewController()
         
-        let userUploads = db.child("TrashInfo/"+userID)
+        let userUploads = db.child("TrashInfo/" + LocationHelp.closestUserCity(UserLocation: map.manager.location!).name+"/"+userID)
         
         var counter = 0
         var urls = [String]()

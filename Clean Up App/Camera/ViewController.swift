@@ -17,7 +17,7 @@ import FirebaseEmailAuthUI
 
 
 
-class ViewController: UIViewController, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, CLLocationManagerDelegate, FUIAuthDelegate {
+class ViewController: UIViewController, UINavigationControllerDelegate, AVCapturePhotoCaptureDelegate, FUIAuthDelegate {
     
     
     
@@ -25,15 +25,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     private let storage = Storage.storage().reference()
     private var userImages = [UIImage]()
-    let manager = CLLocationManager()
+    //let manager = CLLocationManager()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager.requestWhenInUseAuthorization()
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
-        manager.startUpdatingLocation()
+//        manager.requestWhenInUseAuthorization()
+//        manager.delegate = self
+//        manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
+//        manager.startUpdatingLocation()
         checkCameraPermissions()
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
@@ -48,9 +48,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
-        manager.stopUpdatingLocation()
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //Uses last known location of user
+//        manager.stopUpdatingLocation()
+//    }
     
     //uploadButton
     private let uploadButton: UIButton = {

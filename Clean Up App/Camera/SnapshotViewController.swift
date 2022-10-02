@@ -27,7 +27,7 @@ class SnapshotViewController: UIViewController {
     var image = UIImage()
     let locationManager = CLLocationManager()
     //let geoCoder = CLGeocoder()
-
+    
     @IBOutlet weak var submitButton: UIButton!
     
     
@@ -38,8 +38,8 @@ class SnapshotViewController: UIViewController {
         self.view.backgroundColor = UIColor.black
         //imageView.frame = view.bounds//can change
         self.imageView.image = image
-//        view.addSubview(sendButton)
-//        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
+        //        view.addSubview(sendButton)
+        //        sendButton.addTarget(self, action: #selector(didTapSendButton), for: .touchUpInside)
         view.addSubview(dismissButton)
         dismissButton.addTarget(self, action: #selector(didTapDismissButton), for: .touchUpInside)
         //imgpreviewvc.session?.stopRunning()//makes sure video feed isnt playing while viewing photo
@@ -61,9 +61,9 @@ class SnapshotViewController: UIViewController {
     
     
     
-        
     
-
+    
+    
     
     @IBAction func didTapSendButton() {
         let now = Date()
@@ -78,13 +78,13 @@ class SnapshotViewController: UIViewController {
         
         //let coordinateT = map.manager.location!
         
-//        let address = geoCoder.reverseGeocodeLocation(coordinateT, completionHandler: {(data, error) in
-//            if (error != nil) {print("reverse geodcode fail: \(error!.localizedDescription)")}
-//            let address = data! as [CLPlacemark]
-//        })
-//        print(address)
-                
-           // map.manager.location?.coordinate)
+        //        let address = geoCoder.reverseGeocodeLocation(coordinateT, completionHandler: {(data, error) in
+        //            if (error != nil) {print("reverse geodcode fail: \(error!.localizedDescription)")}
+        //            let address = data! as [CLPlacemark]
+        //        })
+        //        print(address)
+        
+        // map.manager.location?.coordinate)
         
         //let address = String(map.manager.location?.)
         
@@ -116,14 +116,14 @@ class SnapshotViewController: UIViewController {
                 return
             }
             self.storage.child("images/" + imguploadtime + " " + userID!).downloadURL(completion:{url, error in //gets download URL
-                    guard let url = url, error == nil else {return}
-                    let urlString = url.absoluteString
-                    metadataDict["url"] = urlString
-                self.db.child("TrashInfo").child(userID!).child(imguploadtime).setValue(metadataDict)
-
+                guard let url = url, error == nil else {return}
+                let urlString = url.absoluteString
+                metadataDict["url"] = urlString
+                self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: map.manager.location!).name).child(userID!).child(imguploadtime).setValue(metadataDict)
+                
                 //metadataDict.add
-                    print("Image URL:" + urlString)
-                })
+                print("Image URL:" + urlString)
+            })
         })
         //imgpreviewvc.session?.startRunning()
         self.dismiss(animated: false)
