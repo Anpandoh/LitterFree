@@ -2,9 +2,7 @@
 //  MapViewController.swift
 //  Clean Up App
 //
-// Make edge transparent to allow swiping (or something)
-// Implement RightCalloutAccesoryView
-// Optional - Add search by address
+//
 //  Created by Aneesh Pandoh on 6/25/21.
 //
 
@@ -12,8 +10,6 @@ import MapKit
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-import FirebaseFirestore
-
 
 
 
@@ -21,10 +17,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     @IBOutlet var mapView: MKMapView!
     let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
-    var metadataIndex =  Dictionary<String,Any>()
-    var metadataunwrap = [Dictionary<String,Any>]()
-    var metadatatotal = [String: Any]()
-    var db: DatabaseReference!
     
     
     
@@ -36,6 +28,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
         manager.startUpdatingLocation()
         mapView.showsUserLocation = true
+        //trashpin()//change to view did appear
+    }
+    override func viewDidAppear(_ animated: Bool) {
         trashpin()
     }
     
@@ -62,6 +57,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     var numberFormatter = NumberFormatter()
+    var db: DatabaseReference!
     func trashpin() { //function to create markers for every place trash is reported
         
         
@@ -75,7 +71,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         loadingVC.modalTransitionStyle = .crossDissolve
         
         present(loadingVC, animated: true, completion: nil)
-        
         
         
         db = Database.database().reference()
@@ -123,6 +118,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
         annotationView?.rightCalloutAccessoryView = imgbutton //Button is on the right side of the clickable marker annotation field
+        
         
         return annotationView
     }

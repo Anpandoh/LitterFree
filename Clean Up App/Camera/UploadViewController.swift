@@ -10,7 +10,7 @@ import Photos
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-import FirebaseCore
+//import FirebaseCore
 import FirebaseDatabase
 
 
@@ -80,26 +80,28 @@ class UploadViewController: UIViewController {
         print(photodate)
         print(latitude)
         print(longitude)
+        
 
         
         
         
         
-        if Double(latitude) == 0.0 && Double(longitude) == 0.0 {
-            guard let selectLocation = self.storyboard?.instantiateViewController(identifier: "mapView") as? UINavigationController else {return}
-            //collectionvc.modalPresentationStyle =  .fullScreen
-            self.present(selectLocation, animated: true)
-        }
+//        if Double(latitude) == 0.0 && Double(longitude) == 0.0 {
+//            guard let selectLocation = self.storyboard?.instantiateViewController(identifier: "mapView") as? UINavigationController else {return}
+//            //collectionvc.modalPresentationStyle =  .fullScreen
+//            self.present(selectLocation, animated: true)
+//        }
+        
         
         
         // group.enter()
         
-        else {
+        //else {
         // group.notify(queue: .main) {
         let manager = PHImageManager.default()
         
         manager.requestImage(for: asset, targetSize: CGSize(width: 128, height: 128), contentMode: .aspectFit, options: nil) { image, _ in
-            let imageData = image?.jpegData(compressionQuality: 1.0)
+            let imageData = image?.jpegData(compressionQuality: 0.8)
             //date & time of imageupload
             let imguploadtime = formatter.string(from: now)
             
@@ -133,13 +135,20 @@ class UploadViewController: UIViewController {
                     let urlString = url.absoluteString
                     metadataDict["url"] = urlString
                     self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: map.manager.location!).name).child(userID!).child(imguploadtime).setValue(metadataDict)
-                    print("Image URL:" + urlString)
+                    //print("Image URL:" + urlString)
                     self.presentingViewController!.dismiss(animated: true)
                 })
             })
         }
+        //addPoints
+        let test = userPoints()
+        do {
+            try test.addPoints(NumberOfPoints: Constants.POINTVALUES.trashAdded)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
-    }
+    //}
     
     func setUpElements() {
         Utilities.styleSubmitButton(submitButton)

@@ -31,6 +31,8 @@
 		F0B0FCB8268515A600050420 /* Clean_Up_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCB7268515A600050420 /* Clean_Up_AppUITests.swift */; };
 		F0B0FCC626851AD200050420 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC526851AD200050420 /* TabViewController.swift */; };
 		F0B0FCCA2686616600050420 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0FCC92686616600050420 /* MapViewController.swift */; };
+		F0CDF0C928F1BF8100774C38 /* userPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDF0C828F1BF8100774C38 /* userPoints.swift */; };
+		F0CDF0CB28F1C94500774C38 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDF0CA28F1C94500774C38 /* Constants.swift */; };
 		F0EB8CC928A9B6CC00EEA260 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */; };
 		F0F2676026B3D86200488F4C /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */; };
 		F0FD284B26DBEC380063C357 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */; };
@@ -95,6 +97,8 @@
 		F0B0FCB9268515A600050420 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0B0FCC526851AD200050420 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		F0B0FCC92686616600050420 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F0CDF0C828F1BF8100774C38 /* userPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userPoints.swift; sourceTree = "<group>"; };
+		F0CDF0CA28F1C94500774C38 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		F0F2675F26B3D86100488F4C /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
 		F0FD284A26DBEC380063C357 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 				F06E0FCF26CC7F4300959249 /* Utilities.swift */,
 				F0EB8CC828A9B6CC00EEA260 /* LoadingViewController.swift */,
 				F027324F28E8F6B000ED78B1 /* LocationHelp.swift */,
+				F0CDF0CA28F1C94500774C38 /* Constants.swift */,
+				F0CDF0C828F1BF8100774C38 /* userPoints.swift */,
 				F09F6E7428B0C5EE00F8250A /* userProfile */,
 				F06E0FCE26CC79A700959249 /* Login */,
 				F08841C126CDE824005ABFD5 /* Camera */,
@@ -548,6 +554,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0FD284B26DBEC380063C357 /* PhotosCollectionViewCell.swift in Sources */,
+				F0CDF0CB28F1C94500774C38 /* Constants.swift in Sources */,
 				F0EB8CC928A9B6CC00EEA260 /* LoadingViewController.swift in Sources */,
 				F05AC49C2694E247004138F2 /* Trashmarkers.swift in Sources */,
 				F09F6E7628B0C85E00F8250A /* recentPhotosCollectionViewCell.swift in Sources */,
@@ -562,6 +569,7 @@
 				F0FD284F26DD20D10063C357 /* UploadViewController.swift in Sources */,
 				F0FD284D26DBED120063C357 /* CollectionViewController.swift in Sources */,
 				F06E0FC926CC73FB00959249 /* loginManager.swift in Sources */,
+				F0CDF0C928F1BF8100774C38 /* userPoints.swift in Sources */,
 				F06E0FC526B90C3500959249 /* SnapshotViewController.swift in Sources */,
 				F0819BE726D0438B0066197F /* SettingsViewController.swift in Sources */,
 				F06E0FCB26CC792E00959249 /* AuthViewController.swift in Sources */,
@@ -756,6 +764,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -781,6 +792,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pdx.CleanUpApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

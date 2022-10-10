@@ -75,6 +75,18 @@ class Utilities {
 
     }
     
+    static func stylePointsLabel(_ label:UILabel) {
+        
+        // Filled rounded corner style
+        label.layer.borderWidth = 2
+        label.layer.borderColor = UIColor.init(red: 253/255, green: 218/255, blue: 13/255, alpha: 1).cgColor
+        label.layer.cornerRadius = 0.25 * label.bounds.size.height
+        label.tintColor = UIColor.white
+        //label.font = UIFont(name:"Bodoni 72 Oldstyle Book", size: 20.0)
+
+    }
+    
+    
     static func styleSubmitButton(_ button:UIButton) {
         button.setTitle("Submit Image", for: .normal)
         button.backgroundColor = .systemGreen

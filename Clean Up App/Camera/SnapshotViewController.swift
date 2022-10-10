@@ -104,7 +104,7 @@ class SnapshotViewController: UIViewController {
         //SampleUserName
         let userID = Auth.auth().currentUser?.uid
         
-        let imageData = image.jpegData(compressionQuality: 1.0)!
+        let imageData = image.jpegData(compressionQuality: 0.8)!
         
         //uploadimagedata
         let ref = storage.child("images/" + imguploadtime + " " + userID!)
@@ -125,8 +125,17 @@ class SnapshotViewController: UIViewController {
                 print("Image URL:" + urlString)
             })
         })
+        //addpoints
+        let test = userPoints()
+        do {
+            try test.addPoints(NumberOfPoints: Constants.POINTVALUES.trashAdded)
+        } catch {
+            print("fail")
+        }
+        
         //imgpreviewvc.session?.startRunning()
         self.dismiss(animated: false)
+        
     }
     
     func setUpElements() {

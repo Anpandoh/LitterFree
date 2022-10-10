@@ -75,6 +75,16 @@
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="StV-hd-A0x">
+                                <rect key="frame" x="40" y="192" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="76a-zv-EE9"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="obJ-JB-nUp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pLh-oV-lUU">
                                 <rect key="frame" x="0.0" y="387" width="414" height="296"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -106,10 +116,13 @@
                             <constraint firstItem="u4A-pp-aq6" firstAttribute="top" secondItem="pLh-oV-lUU" secondAttribute="bottom" constant="30" id="4ji-QT-hN7"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="pLh-oV-lUU" secondAttribute="trailing" id="5eu-4t-CBf"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="u4A-pp-aq6" secondAttribute="trailing" constant="40" id="5h7-EX-Bgd"/>
+                            <constraint firstItem="StV-hd-A0x" firstAttribute="leading" secondItem="Ed0-Pw-sS1" secondAttribute="leading" constant="40" id="NPF-aa-xvU"/>
                             <constraint firstItem="u4A-pp-aq6" firstAttribute="leading" secondItem="Ed0-Pw-sS1" secondAttribute="leading" constant="40" id="ZhJ-Em-Icb"/>
+                            <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="StV-hd-A0x" secondAttribute="trailing" constant="40" id="bdV-1f-h4c"/>
                             <constraint firstItem="pLh-oV-lUU" firstAttribute="leading" secondItem="Ed0-Pw-sS1" secondAttribute="leading" id="dTg-6X-jJ3"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="bottom" secondItem="u4A-pp-aq6" secondAttribute="bottom" constant="50" id="fOd-jw-EGD"/>
                             <constraint firstItem="wYw-aS-3CZ" firstAttribute="top" secondItem="Ed0-Pw-sS1" secondAttribute="top" constant="40" id="mRV-k8-OCe"/>
+                            <constraint firstItem="StV-hd-A0x" firstAttribute="top" secondItem="wYw-aS-3CZ" secondAttribute="bottom" constant="20" id="rKB-hb-xuL"/>
                             <constraint firstItem="Ed0-Pw-sS1" firstAttribute="trailing" secondItem="wYw-aS-3CZ" secondAttribute="trailing" constant="40" id="wvb-go-cAv"/>
                         </constraints>
                     </view>
@@ -118,6 +131,7 @@
                         <outlet property="collectionView" destination="pLh-oV-lUU" id="SkO-1h-jjw"/>
                         <outlet property="logOut" destination="u4A-pp-aq6" id="3V7-5C-bkX"/>
                         <outlet property="userLabel" destination="wYw-aS-3CZ" id="RUS-Ul-IVs"/>
+                        <outlet property="userPointsLabel" destination="StV-hd-A0x" id="Fle-8r-bva"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uCJ-a1-lUh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -421,6 +435,9 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

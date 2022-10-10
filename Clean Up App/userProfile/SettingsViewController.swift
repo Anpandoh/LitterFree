@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var userPointsLabel: UILabel!
     @IBOutlet weak var logOut: UIButton!
     var db: DatabaseReference!
     var images = [UIImage]()
@@ -32,10 +33,11 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
     private func setUpElements(){
         Utilities.styleCancelButton(logOut)
         Utilities.styleLabelSimple(userLabel)
+        Utilities.stylePointsLabel(userPointsLabel)
         userLabel.alpha = 0
         logOut.alpha = 0
+        userPointsLabel.alpha = 0
         //view.backgroundColor = .systemIndigo
-        
     }
     
     //Showing user label
@@ -44,6 +46,22 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
         userLabel.alpha = 1
         logOut.alpha = 1
     }
+    
+    //Showing user points
+    private func showPoints() {
+        let pointsHelper = userPoints()
+        pointsHelper.getPoints(completion: {(points) in
+                //print("The points returned:" + String(points) + "\n")
+                self.userPointsLabel.text = "Your Points: " + String(points)
+                self.userPointsLabel.alpha = 1
+                
+            })
+        
+        //userPointsLabel.text = String(message)
+    }
+    
+    
+    
     
     //Logout Button
     @IBAction func logOut(_ sender: Any) {
@@ -72,6 +90,7 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
                 return
             }
             showUser("Signed in as: " + name)
+            showPoints()
         }
         else {
             loginScreen()
