@@ -23,8 +23,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     
     
-    private let storage = Storage.storage().reference()
-    private var userImages = [UIImage]()
+    let storage = Storage.storage().reference()
+    var userImages = [UIImage]()
     //let manager = CLLocationManager()
     
     
@@ -34,7 +34,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
 //        manager.delegate = self
 //        manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
 //        manager.startUpdatingLocation()
+        let map = MapViewController()
+        map.manager.requestWhenInUseAuthorization() //Interprets in the info.plist (whether the user has given location permissions)
         checkCameraPermissions()
+        //view.backgroundColor = .systemRed
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
         view.addSubview(uploadButton)
@@ -53,7 +56,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
 //    }
     
     //uploadButton
-    private let uploadButton: UIButton = {
+    let uploadButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         button.setImage(UIImage(named: "Upload_Icon"), for: .normal)
         return button
@@ -61,7 +64,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     
     //UploadButton functionality
-    @IBAction func didUploadTapButton() { //present image selection
+    @objc func didUploadTapButton() { //present image selection
         guard let uploadvc = self.storyboard?.instantiateViewController(identifier: "uploadNav") as? UINavigationController else {return}
         //collectionvc.modalPresentationStyle =  .fullScreen
         self.present(uploadvc, animated: true)
@@ -76,7 +79,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     //Image Preview
     let previewLayer = AVCaptureVideoPreviewLayer()
     //Shutter Button
-    private let shutterButton: UIButton = {
+    let shutterButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         button.layer.cornerRadius = 50
         button.layer.borderWidth = 8
@@ -93,7 +96,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     
     //makes sure the user has allowed to access camera
-    private func checkCameraPermissions() {
+    func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video){
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) {granted in //asking for camera
@@ -142,8 +145,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
                 previewLayer.videoGravity = .resizeAspectFill //resize the video
                 previewLayer.session = session
                 
-                session.startRunning()
-                self.session = session
+                DispatchQueue.main.async {
+                    session.startRunning()
+                    self.session = session
+                }
             }
             catch {
                 print("problem")
@@ -153,7 +158,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     
     //captures photo
-    @objc private func didTapTakePhoto() {
+    @objc func didTapTakePhoto() {
         output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
@@ -164,11 +169,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         }
         let image = UIImage(data: data)!
         //session?.stopRunning()//makes sure video feed isnt playing while viewing photo
-        guard let snapViewer = self.storyboard?.instantiateViewController(identifier: "snapViewer") as? SnapshotViewController else {return}
-        snapViewer.image = image
-        snapViewer.modalPresentationStyle = .fullScreen
+//        guard let snapViewer = self.storyboard?.instantiateViewController(identifier: "snapViewer") as? SnapshotViewController else {return}
+        let snapViewer = SnapshotViewController(snapShotImage: image)
+        let navVC = UINavigationController(rootViewController: snapViewer)
+        navVC.modalPresentationStyle = .fullScreen
+        
+        navVC.title = "Hello"
+
         //snapViewer.modalTransitionStyle = .crossDissolve
-        self.present(snapViewer, animated: false)
+        self.present(navVC, animated: false)
     }
     
     

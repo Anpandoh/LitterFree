@@ -98,10 +98,24 @@ class Utilities {
     
     static func styleImgButton(_ button:UIButton) {
         button.backgroundColor = .systemGreen
-        button.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         button.layer.cornerRadius = 0.25 * button.bounds.size.width
         button.clipsToBounds = true
-        button.setImage(UIImage(named: "Photo_Icon"), for: .normal)
+        button.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)
+        button.tintColor = .white
+    }
+    
+    static func styleFloatingButton(button:UIButton) {
+//        button.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 60, height: 60))
+        //button.layer.masksToBounds = true
+        button.layer.cornerRadius = button.frame.width/2
+        button.backgroundColor = .systemGreen
+        
+        let icon = UIImage(systemName: "cart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32, weight: .medium))
+        button.setImage(icon, for: .normal)
+        button.layer.shadowRadius = 10
+        button.layer.shadowOpacity = 0.4
+        button.tintColor = .white
     }
     
     public static var defaultColor: UIColor = {

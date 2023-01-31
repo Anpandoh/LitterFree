@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l4N-bb-bfM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -182,7 +182,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Xxz-Da-KLz">
-                                <rect key="frame" x="0.0" y="48" width="414" height="848"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" red="0.0025509196050000002" green="1" blue="0.38217214490000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </mapView>
                         </subviews>
@@ -191,7 +191,7 @@
                             <constraint firstItem="Xxz-Da-KLz" firstAttribute="leading" secondItem="oNB-ao-hb8" secondAttribute="leading" id="2nH-Dy-Qxo"/>
                             <constraint firstAttribute="bottom" secondItem="Xxz-Da-KLz" secondAttribute="bottom" id="8jR-zV-aLP"/>
                             <constraint firstItem="Xxz-Da-KLz" firstAttribute="trailing" secondItem="oNB-ao-hb8" secondAttribute="trailing" id="Rb6-N0-AqJ"/>
-                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="top" secondItem="Bu1-pg-iyL" secondAttribute="top" constant="48" id="Wv0-kd-tKr"/>
+                            <constraint firstItem="Xxz-Da-KLz" firstAttribute="top" secondItem="Bu1-pg-iyL" secondAttribute="top" id="fm2-uj-cEy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map" id="qjB-cq-h38"/>
@@ -250,50 +250,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KlD-7L-Vyg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2139.130434782609" y="-239.0625"/>
-        </scene>
-        <!--Snapshot View Controller-->
-        <scene sceneID="2Z1-Kh-XVd">
-            <objects>
-                <viewController storyboardIdentifier="snapViewer" id="fV4-K7-in6" customClass="SnapshotViewController" customModule="Clean_Up_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mqO-61-5Dm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p1P-II-kV8">
-                                <rect key="frame" x="0.0" y="48" width="414" height="814"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gx2-B4-ueD">
-                                <rect key="frame" x="234" y="78" width="150" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="faI-pW-eMV"/>
-                                </constraints>
-                                <state key="normal" title="Submit Image"/>
-                                <connections>
-                                    <action selector="didTapSendButton" destination="fV4-K7-in6" eventType="touchUpInside" id="XUx-cX-cTh"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="dms-KH-kda"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="gx2-B4-ueD" firstAttribute="top" secondItem="dms-KH-kda" secondAttribute="top" constant="30" id="RFI-ZS-qGy"/>
-                            <constraint firstItem="dms-KH-kda" firstAttribute="trailing" secondItem="gx2-B4-ueD" secondAttribute="trailing" constant="30" id="dyp-WR-6XC"/>
-                            <constraint firstItem="p1P-II-kV8" firstAttribute="top" secondItem="mqO-61-5Dm" secondAttribute="topMargin" id="evC-95-6LH"/>
-                            <constraint firstItem="p1P-II-kV8" firstAttribute="bottom" secondItem="mqO-61-5Dm" secondAttribute="bottomMargin" id="ne5-RN-Xgf"/>
-                            <constraint firstItem="p1P-II-kV8" firstAttribute="leading" secondItem="dms-KH-kda" secondAttribute="leading" id="xJt-ii-OWD"/>
-                            <constraint firstItem="dms-KH-kda" firstAttribute="trailing" secondItem="p1P-II-kV8" secondAttribute="trailing" id="zMf-B6-h3C"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="imageView" destination="p1P-II-kV8" id="GnY-Ab-KVE"/>
-                        <outlet property="submitButton" destination="gx2-B4-ueD" id="IEO-jj-muZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c6s-4X-IPr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2139" y="398"/>
         </scene>
         <!--Upload Images-->
         <scene sceneID="n68-Ey-K0m">

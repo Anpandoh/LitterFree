@@ -1,11 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Untitled drawing-2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Untitled drawing.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

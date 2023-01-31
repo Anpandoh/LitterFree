@@ -106,7 +106,7 @@ class UploadViewController: UIViewController {
             let imguploadtime = formatter.string(from: now)
             
             //metadata uploading
-            var metadataDict = [
+            var trashDict = [
                 "Latitude": latitude,
                 "Longitude":longitude,
                 "Date":photodate
@@ -114,9 +114,12 @@ class UploadViewController: UIViewController {
             
             
             
+            
+            
+            
             let Metadata = StorageMetadata()
-            //Metadata.contentType = "images/png" FIREBASE IS BROKEN AND WILL ONLY ALLOW CUSTOM METADATA IF CONTENTTYPE AND OTHERS REMAIN UNSPECIFIED
-            Metadata.customMetadata = metadataDict;
+            Metadata.contentType = "images/jpeg" //FIREBASE IS BROKEN AND WILL ONLY ALLOW CUSTOM METADATA IF CONTENTTYPE AND OTHERS REMAIN UNSPECIFIED
+            //Metadata.customMetadata = metadataDict;
             
             //SampleUserName
             let userID = Auth.auth().currentUser?.uid
@@ -133,8 +136,8 @@ class UploadViewController: UIViewController {
                 self.storage.child("images/" + imguploadtime + " " + userID!).downloadURL(completion: {url, error in //gets download URL
                     guard let url = url, error == nil else {return}
                     let urlString = url.absoluteString
-                    metadataDict["url"] = urlString
-                    self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: map.manager.location!).name).child(userID!).child(imguploadtime).setValue(metadataDict)
+                    trashDict["url"] = urlString
+                    self.db.child("TrashInfo").child(LocationHelp.closestUserCity(UserLocation: map.manager.location!).name).child(userID!).child(imguploadtime).setValue(trashDict)
                     //print("Image URL:" + urlString)
                     self.presentingViewController!.dismiss(animated: true)
                 })

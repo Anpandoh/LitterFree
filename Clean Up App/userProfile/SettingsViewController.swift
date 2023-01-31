@@ -27,13 +27,41 @@ class SettingsViewController: UIViewController, FUIAuthDelegate, UICollectionVie
         super.viewDidLoad()
         
         setUpElements()
+        leaderboardButton.addTarget(self, action: #selector(didTapLeaderboardButton), for: .touchUpInside)
+        
         
     }
+    
+    let leaderboardButton: UIButton = { //Anonymous class
+        let button = UIButton()
+        button.setTitle("leaderboard", for: .normal)
+
+        return button
+    }()
+
+    @objc func didTapLeaderboardButton() {
+        let leaderboard = LeaderboardController()
+        self.present(leaderboard, animated: true)
+        
+    }
+    
+    
+    //add a UI Stack view
+//    let verticalStack: UIStackView = {
+//
+//    }
+    
     
     private func setUpElements(){
         Utilities.styleCancelButton(logOut)
         Utilities.styleLabelSimple(userLabel)
         Utilities.stylePointsLabel(userPointsLabel)
+        leaderboardButton.bounds = CGRect(x: 0, y: 0, width: view.frame.width-80, height: 40)
+        leaderboardButton.center = CGPoint(x: view.bounds.midX, y: 300)
+        Utilities.styleHollowButton(leaderboardButton)
+        //view.addSubview(leaderboardButton)
+        
+        
         userLabel.alpha = 0
         logOut.alpha = 0
         userPointsLabel.alpha = 0
