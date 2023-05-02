@@ -27,22 +27,7 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
         imageView.frame = view.bounds
         
         
-        //        view.addSubview(progressView)
-        //        progressView.setProgress(0, animated: false)
-        //        progressView.frame = CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: 20)
         
-        //Shows loading screen while metdata is being fetched
-        
-        
-        
-        //        let loadingVC = LoadingViewController()
-        //
-        //        // Animate loadingVC over the existing views on screen
-        //        loadingVC.modalPresentationStyle = .overCurrentContext
-        //
-        //        // Animate loadingVC with a fade in animation
-        //        loadingVC.modalTransitionStyle = .crossDissolve
-        //
         //        self.present(loadingVC, animated: true, completion: nil)
         //
         displayImage()
@@ -54,13 +39,7 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
     
     
     
-    //    //Progress Bar
-    //    private let progressView: UIProgressView = {
-    //        let progressView = UIProgressView(progressViewStyle: .default)
-    //        progressView.trackTintColor = .white
-    //        progressView.progressTintColor = .green
-    //        return progressView
-    //    }()
+ 
     //
     
     
@@ -128,21 +107,3 @@ class ImagePopUpViewController: UIViewController { //fix error where the loaded 
 }
 
 
-//class ImageCache {
-//    var cache = NSCache<NSString, UIImage>()
-//
-//    func get(forKey: String) -> UIImage? {
-//        return cache.object(forKey: NSString(string: forKey))
-//    }
-//
-//    func set(forKey: String, image: UIImage) {
-//        cache.setObject(image, forKey: NSString(string: forKey))
-//    }
-//}
-//
-//extension ImageCache {
-//    private static var imageCache = ImageCache()
-//    static func getImageCache() -> ImageCache {
-//        return imageCache
-//    }
-//}

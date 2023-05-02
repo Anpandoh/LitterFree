@@ -1,34 +1,28 @@
 //
-//  CleanUpViewController.swift
+//  TrashCanPictureViewController.swift
 //  Clean Up App
 //
-//  Created by Aneesh Pandoh on 1/20/23.
+//  Created by Aneesh Pandoh on 1/24/23.
 //
 
 import UIKit
 import AVFoundation
 
-
-//Take a picture to verify clean up
-
-class CleanUpViewController: ViewController {
+class TrashCanViewController: ViewController {
     
-    let trashCleaned: Trashmarkers
+    let TrashCart: [Trashmarkers]
     
-    init(trashCleaned: Trashmarkers) {
-        self.trashCleaned = trashCleaned
-        super.init()
+    init(TrashCart: [Trashmarkers]){
+        self.TrashCart = TrashCart
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
-        //        manager.requestWhenInUseAuthorization()
-        //        manager.delegate = self
-        //        manager.desiredAccuracy = kCLLocationAccuracyBest //Has GPS accuracy set to best
-        //        manager.startUpdatingLocation()
+        
         
         checkCameraPermissions()
         //view.backgroundColor = .systemRed
@@ -61,12 +55,26 @@ class CleanUpViewController: ViewController {
         let image = UIImage(data: data)!
         //session?.stopRunning()//makes sure video feed isnt playing while viewing photo
         //        guard let snapViewer = self.storyboard?.instantiateViewController(identifier: "snapViewer") as? SnapshotViewController else {return}
-        let snapViewer = SnapshotViewController(snapShotImage: image, trashCleaned: trashCleaned)
+        let snapViewer = SnapshotViewController(snapShotImage: image, TrashCart: TrashCart)
         let navVC = UINavigationController(rootViewController: snapViewer)
         navVC.modalPresentationStyle = .fullScreen
         
         //snapViewer.modalTransitionStyle = .crossDissolve
         self.present(navVC, animated: false)
+        
+        
     }
     
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }

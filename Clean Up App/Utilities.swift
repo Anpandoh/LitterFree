@@ -96,9 +96,9 @@ class Utilities {
 
     }
     
-    static func styleImgButton(_ button:UIButton) {
+    static func styleAddPinToCartButton(_ button:UIButton) {
         button.backgroundColor = .systemGreen
-        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         button.layer.cornerRadius = 0.25 * button.bounds.size.width
         button.clipsToBounds = true
         button.setImage(UIImage(systemName: "cart.badge.plus"), for: .normal)

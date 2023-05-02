@@ -65,7 +65,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     //UploadButton functionality
     @objc func didUploadTapButton() { //present image selection
-        guard let uploadvc = self.storyboard?.instantiateViewController(identifier: "uploadNav") as? UINavigationController else {return}
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let uploadvc = storyboard.instantiateViewController(identifier: "uploadNav") as UINavigationController
         //collectionvc.modalPresentationStyle =  .fullScreen
         self.present(uploadvc, animated: true)
     }
@@ -83,6 +85,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         button.layer.cornerRadius = 50
         button.layer.borderWidth = 8
+        button.backgroundColor = UIColor(white:0.000, alpha:0.020)
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()

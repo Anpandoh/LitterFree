@@ -15,12 +15,16 @@ import FirebaseStorage
 let storage = Storage.storage()
 
 
+protocol addedToCartDelegate {
+    func didAddToCart()
+}
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    
+    
     @IBOutlet var mapView: MKMapView!
     public let manager = CLLocationManager() //User location turned into a constant so it can be used by defined classes further down
-    
     
     //Floating cart button
     let cartButton: UIButton = {
@@ -28,6 +32,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         Utilities.styleFloatingButton(button: button)
         return button
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +49,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         //trashpin()//change to view did appear
     }
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         trashpin()
     }
@@ -112,7 +120,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     let trashdate = (value["Date"] ?? "DNE") as String
                     let trashlong = self.numberFormatter.number(from: (value["Longitude"] ?? "DNE") as String)
                     let url = (value["url"] ?? "DNE") as String
-                    let trashmarker = Trashmarkers(title: "Date: " + trashdate, subtitle: "Date/Time: " + trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: url)
+                    let trashmarker = Trashmarkers(title: "Date: " + trashdate, subtitle: trashdate, coordinate: CLLocationCoordinate2D(latitude: trashlat as! CLLocationDegrees, longitude: trashlong as! CLLocationDegrees), img: url, firebaseQuery: child)
                     mapView.addAnnotation(trashmarker)
                     
                 }
@@ -130,6 +138,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         guard !(annotation is MKUserLocation) else { //keeps user location normal icon
             return nil
         }
+        
+        guard (annotation is Trashmarkers) else {
+            return nil
+        }
+        let test = annotation as! Trashmarkers
+        
+        
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")//Dequeueing
         
         if annotationView == nil {
@@ -139,21 +154,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotationView?.canShowCallout = true //shows title and subtitle field when clicked
         
         
-//        //imageviewbutton
-        let imgbutton = UIButton(type: .custom)
+        //imageviewbutton
+        let addPinToCart = UIButton(type: .custom)
 
-        Utilities.styleImgButton(imgbutton)
+        Utilities.styleAddPinToCartButton(addPinToCart)
         
         
-        annotationView?.rightCalloutAccessoryView = imgbutton //Button is on the right side of the clickable marker annotation field
+        annotationView?.leftCalloutAccessoryView = addPinToCart //Button is on the right side of the clickable marker annotation field
         
             
-        
-        
-        
-        //CustomCallout.delegate = self
-        
-        
+//        guard (test.inCart == false) else {
+//            return nil
+////            annotationView?.image = UIImage(systemName: "hand.thumbsup.circle.fill") //Dequeueing
+////            return annotationView
+//        }
         
         //self.configureDetailView(annotationView: annotationView!)
         
@@ -161,112 +175,52 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return annotationView
     }
     
-    func configureDetailView(annotationView: MKAnnotationView) -> UIView {
-        let snapshotView = UIView()
-        let views = ["snapshotView": snapshotView]
-        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(400)]", options: [], metrics: nil, views: views))
-        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(100)]", options: [], metrics: nil, views: views))
-        
-        //imageviewbutton
-//        let imgbutton = UIButton(type: .custom)
-//        imgbutton.frame = CGRect(x: 300, y: 100, width: 50, height: 50)
-//        Utilities.styleImgButton(imgbutton)
-//        snapshotView.addSubview(imgbutton)
-        
-        
-        guard let trash = annotationView.annotation as? Trashmarkers else {return snapshotView}
-        
-        let imageCache = ImageCache.getImageCache()
-        
-        if let imageFromCache = imageCache.get(forKey: trash.img!) {
-            //            loadingVC.dismiss(animated: true) //Dismisses the loading screen
-            
-            print("Using Cache");
-//            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-//            imageView.image = imageFromCache
-            let imageView = UIImageView(image: imageFromCache)
-            imageView.frame = CGRect(x: snapshotView.bounds.midX, y: 100, width: 144, height: 256)
-            imageView.clipsToBounds = true
-            imageView.contentMode = .scaleAspectFit
-            snapshotView.addSubview(imageView)
-            
-        }//checks for cached image
-        
-        //If nothing in cache
-        else {
-            print("Not using Cache");
-            
-            //let url = URL(string: urlLink)!
-            
-            let httpsReference = storage.reference(forURL: trash.img!)
-            
-            DispatchQueue.global().async {
-                httpsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        DispatchQueue.main.async {
-                            // Data for url is returned
-                            if let imageToCache = UIImage(data: data!)  {
-                                imageCache.set(forKey: trash.img!, image: imageToCache)
-                                let imageView = UIImageView(image: imageToCache)
-                                //let imageView = UIImageView(image: UIImage(named: "sun.max"))
-                                imageView.frame = CGRect(x: 0, y: 0, width: 72, height: 128)
-                                //annotationView.detailCalloutAccessoryView?.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-                                imageView.clipsToBounds = true
-                                imageView.contentMode = .scaleAspectFit
-                                imageView.backgroundColor = .systemGreen
-                                snapshotView.addSubview(imageView)
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        
-        return snapshotView
-    }
-    
-    
     
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         // initialize your custom view
         let customCalloutView = CustomCallout(frame: CGRect(x: 0, y: 0, width: 500, height: 500), annotationView: view)
         view.detailCalloutAccessoryView = customCalloutView
-        
-        
     }
     
+//    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+//        // initialize your custom view
+//        let trash = view.annotation as! Trashmarkers
+//        if (trash.inCart == true) {
+//            view.image = nil
+//            print("Hello")
+//            view.image = UIImage(systemName: "hand.thumbsup.circle.fill")
+//            }
+//    }
     
-    
-    
+    func removeAnnotation(_ annotation: MKAnnotation) {
+        
+    }
+
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //Display trash image on seperate view controller
         
-        //        guard let popupvc = self.storyboard?.instantiateViewController(identifier: "popup_vc") as? ImagePopUpViewController else {return}
-        //        popupvc.setImage(url: trash.img!)
         
         
-        view.image = UIImage(systemName: "hand.thumbsup.circle.fill")
+        
+        let trash = view.annotation as! Trashmarkers
+        trash.inCart = true
         
         view.tintColor = .systemGreen
         
-        let cleanUpController = CleanUpViewController()
-        cleanUpController.modalPresentationStyle = .fullScreen
+        
+        
+        let cleanUpController = CleanUpViewController(trashCleaned: trash)
+        
+        let navVC = UINavigationController(rootViewController: cleanUpController)
+        navVC.modalPresentationStyle = .fullScreen
         
 
         //snapViewer.modalTransitionStyle = .crossDissolve
         
         
-        present(cleanUpController, animated: false)
-        
-        
-        
-        
+        present(navVC, animated: false)
         
         
         
@@ -278,6 +232,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
 }
+
+
 
 class ImageCache {
     var cache = NSCache<NSString, UIImage>()
